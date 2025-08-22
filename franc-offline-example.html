@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Franc Offline Example</title>
+</head>
+<body>
+
+    <h1>Franc Offline Example</h1>
+    <p>This page imports your downloaded <code>franc-offline.js</code> as an ES module and runs a simple detection.</p>
+
+    <textarea id="text" rows="4" cols="60">Ceci est un test pour la détection de langue.</textarea>
+    <br>
+    <button id="detect">Detect language</button>
+    <p>Detected language: <strong id="result">-</strong></p>
+
+    <script type="module">
+        // Import the franc functions from the local file (must be in the same folder)
+        import { franc } from './franc-offline.js';
+
+        const btn = document.getElementById('detect');
+        const out = document.getElementById('result');
+        const txt = document.getElementById('text');
+
+        btn.addEventListener('click', () => {
+            try {
+                const text = txt.value;
+                const detected = franc(text);
+                out.textContent = detected || 'und';
+            } catch (err) {
+                out.textContent = 'error';
+                console.error(err);
+            }
+        });
+
+        // Run once on load for convenience
+        btn.click();
+    </script>
+
+</body>
+</html>

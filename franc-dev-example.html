@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franc Language Detection - Development Version</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007cba;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #005a87;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #007cba;
+            border-radius: 5px;
+        }
+        .debug-result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+        .example-buttons {
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .example-btn {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 3px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .example-btn:hover {
+            background-color: #545b62;
+        }
+        .dev-controls {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fff3cd;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+        }
+        .dev-controls h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .difficult-examples {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #d4edda;
+            border-radius: 5px;
+            border-left: 4px solid #28a745;
+        }
+        .difficult-examples h3 {
+            margin-top: 0;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Franc Language Detection - Development Version</h1>
+        <p>Enhanced development version with debugging capabilities and challenging language examples:</p>
+        
+        <textarea id="textInput" placeholder="Type or paste text here to detect its language...">Hello, this is a sample text in English. The franc library can detect this language automatically.</textarea>
+        
+        <div class="example-buttons">
+            <button class="example-btn" onclick="loadExample('Hello world, how are you today?')">English</button>
+            <button class="example-btn" onclick="loadExample('Bonjour le monde, comment allez-vous?')">French</button>
+            <button class="example-btn" onclick="loadExample('Hola mundo, ¿cómo estás hoy?')">Spanish</button>
+            <button class="example-btn" onclick="loadExample('Guten Tag, wie geht es Ihnen heute?')">German</button>
+            <button class="example-btn" onclick="loadExample('Ciao mondo, come stai oggi?')">Italian</button>
+            <button class="example-btn" onclick="loadExample('Привет мир, как дела сегодня?')">Russian</button>
+        </div>
+        
+        <div class="difficult-examples">
+            <h3>🎯 Challenging Language Pairs - Similar Languages</h3>
+            <div class="example-buttons">
+                <button class="example-btn" onclick="loadExample('Dobro jutro, kako ste danas? Nadam se da imate lep dan.')">Serbian</button>
+                <button class="example-btn" onclick="loadExample('Dobro jutro, kako ste danas? Nadam se da imate lijep dan.')">Croatian</button>
+                <button class="example-btn" onclick="loadExample('Dobro jutro, kako ste danas? Nadam se da imate divan dan.')">Bosnian</button>
+                <button class="example-btn" onclick="loadExample('Det här är en svensk text som ska testas för språkigenkänning.')">Swedish</button>
+                <button class="example-btn" onclick="loadExample('Dette er en norsk tekst som skal testes for språkgjenkjenning.')">Norwegian</button>
+            </div>
+        </div>
+        
+        <div class="dev-controls">
+            <h3>🔧 Development Tools</h3>
+            <button onclick="detectLanguage()">🔍 Basic Detection</button>
+            <button onclick="detectLanguageDetailed()">📊 Detailed Analysis</button>
+            <button onclick="debugAnalysis()">🐛 Debug Mode</button>
+            <button onclick="showLibraryInfo()">ℹ️ Library Info</button>
+            <button onclick="testAllDifficult()">🎯 Test All Difficult Examples</button>
+        </div>
+        
+        <div id="result" class="result" style="display: none;"></div>
+        <div id="debugResult" class="debug-result" style="display: none;"></div>
+    </div>
+
+    <script type="module">
+        // Import all functions from the development franc library
+        import { franc, francAll, francDebug, francInfo, francForAPI } from './franc-all-standalone-dev.js';
+
+        // Make functions available globally
+        window.franc = franc;
+        window.francAll = francAll;
+        window.francDebug = francDebug;
+        window.francInfo = francInfo;
+        window.francForAPI = francForAPI;
+
+        window.loadExample = function(text) {
+            document.getElementById('textInput').value = text;
+        }
+
+        window.detectLanguage = function() {
+            const text = document.getElementById('textInput').value;
+            const result = franc(text);
+            
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerHTML = `
+                <h3>🔍 Basic Detection Result</h3>
+                <p><strong>Detected Language:</strong> ${result}</p>
+                <p><strong>Input Text:</strong> "${text.substring(0, 100)}${text.length > 100 ? '...' : ''}"</p>
+            `;
+            document.getElementById('debugResult').style.display = 'none';
+        }
+
+        window.detectLanguageDetailed = function() {
+            const text = document.getElementById('textInput').value;
+            const results = francAll(text);
+            
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerHTML = `
+                <h3>📊 Detailed Analysis</h3>
+                <p><strong>Top Language:</strong> ${results[0][0]} (${Math.round(results[0][1] * 100)}% confidence)</p>
+                <p><strong>All Candidates:</strong></p>
+                <ul>
+                    ${results.slice(0, 5).map(([lang, conf]) => 
+                        `<li>${lang}: ${Math.round(conf * 100)}%</li>`
+                    ).join('')}
+                </ul>
+            `;
+            document.getElementById('debugResult').style.display = 'none';
+        }
+
+        window.debugAnalysis = function() {
+            const text = document.getElementById('textInput').value;
+            
+            // Capture console output
+            const originalLog = console.log;
+            let logOutput = '';
+            console.log = function(...args) {
+                logOutput += args.join(' ') + '\n';
+                originalLog.apply(console, args);
+            };
+            
+            const debugInfo = francDebug(text);
+            
+            // Restore console.log
+            console.log = originalLog;
+            
+            document.getElementById('debugResult').style.display = 'block';
+            document.getElementById('debugResult').textContent = logOutput;
+            document.getElementById('result').style.display = 'none';
+        }
+
+        window.showLibraryInfo = function() {
+            const info = francInfo();
+            
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerHTML = `
+                <h3>ℹ️ Library Information</h3>
+                <p><strong>Version:</strong> ${info.version}</p>
+                <p><strong>Total Languages:</strong> ${info.totalLanguages}</p>
+                <p><strong>Supported Scripts:</strong> ${info.supportedScripts.join(', ')}</p>
+                <p><strong>Algorithms:</strong> ${info.algorithms.join(', ')}</p>
+                <p><strong>Features:</strong> ${info.features.join(', ')}</p>
+            `;
+            document.getElementById('debugResult').style.display = 'none';
+        }
+
+        // Test all difficult language examples
+        window.testAllDifficult = function() {
+            const difficultExamples = [
+                { text: 'Dobro jutro, kako ste danas? Nadam se da imate lep dan.', expected: 'Serbian' },
+                { text: 'Dobro jutro, kako ste danas? Nadam se da imate lijep dan.', expected: 'Croatian' },
+                { text: 'Dobro jutro, kako ste danas? Nadam se da imate divan dan.', expected: 'Bosnian' },
+                { text: 'Det här är en svensk text som ska testas för språkigenkänning.', expected: 'Swedish' },
+                { text: 'Dette er en norsk tekst som skal testes for språkgjenkjenning.', expected: 'Norwegian' }
+            ];
+
+            let results = '<h3>🎯 Difficult Language Pair Test Results</h3>';
+            
+            difficultExamples.forEach((example, index) => {
+                const detected = franc(example.text);
+                const allResults = francAll(example.text);
+                const confidence = Math.round(allResults[0][1] * 100);
+                
+                results += `
+                    <div style="margin: 10px 0; padding: 10px; background: ${detected === example.expected.toLowerCase().slice(0,3) ? '#d4edda' : '#f8d7da'}; border-radius: 5px;">
+                        <strong>Test ${index + 1} (${example.expected}):</strong><br>
+                        Text: "${example.text.substring(0, 50)}..."<br>
+                        Detected: ${detected} (${confidence}% confidence)<br>
+                        Top 3: ${allResults.slice(0, 3).map(([lang, conf]) => `${lang}(${Math.round(conf * 100)}%)`).join(', ')}
+                    </div>
+                `;
+            });
+
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerHTML = results;
+            document.getElementById('debugResult').style.display = 'none';
+        }
+
+        // Auto-run basic detection on page load
+        window.addEventListener('load', function() {
+            detectLanguage();
+        });
+    </script>
+</body>
+</html>
