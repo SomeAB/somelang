@@ -2,6 +2,8 @@
 This is the minified 'all' version downloaded as it is from esm.sh
 */
 
+// N-gram extractors for bigrams and trigrams
+// Used for statistical language detection
 var O = h(2),
   m = h(3);
 
@@ -81,10 +83,12 @@ function x(i) {
   return i == null ? "" : d(String(i).replace(/[\u0021-\u0040]+/g, " ")).trim().toLowerCase()
 }
 
+// Extract trigrams from cleaned text with padding
 function D(i) {
   return m(" " + x(i) + " ")
 }
 
+// Generate trigram frequency map for input text
 function F(i) {
   let a = D(i),
     n = {},
@@ -93,6 +97,7 @@ function F(i) {
   return n
 }
 
+// Sort trigrams by frequency for comparison
 function y(i) {
   let a = F(i),
     n = [],
@@ -101,6 +106,7 @@ function y(i) {
   return n.sort(A), n
 }
 
+// Comparison function for trigram sorting
 function A(i, a) {
   return i[1] - a[1]
 }
@@ -109,10 +115,9 @@ function A(i, a) {
 // UNICODE SCRIPT DETECTION PATTERNS
 // ========================================
 
-/**
- * Unicode character patterns for different writing systems
- * Each pattern matches characters specific to a script
- */
+// Unicode character patterns for different writing systems
+// Each regex matches characters specific to a script/language
+// Used for quick script detection before statistical analysis
 var b = {
   cmn: /[\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFA6D\uFA70-\uFAD9]|\uD81B[\uDFE2\uDFE3\uDFF0\uDFF1]|[\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879\uD880-\uD883\uD885-\uD887][\uDC00-\uDFFF]|\uD869[\uDC00-\uDEDF\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF39\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0]|\uD87E[\uDC00-\uDE1D]|\uD884[\uDC00-\uDF4A\uDF50-\uDFFF]|\uD888[\uDC00-\uDFAF]/g,
   Latin: /[A-Za-z\u00AA\u00BA\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u02E0-\u02E4\u1D00-\u1D25\u1D2C-\u1D5C\u1D62-\u1D65\u1D6B-\u1D77\u1D79-\u1DBE\u1E00-\u1EFF\u2071\u207F\u2090-\u209C\u212A\u212B\u2132\u214E\u2160-\u2188\u2C60-\u2C7F\uA722-\uA787\uA78B-\uA7CA\uA7D0\uA7D1\uA7D3\uA7D5-\uA7D9\uA7F2-\uA7FF\uAB30-\uAB5A\uAB5C-\uAB64\uAB66-\uAB69\uFB00-\uFB06\uFF21-\uFF3A\uFF41-\uFF5A]|\uD801[\uDF80-\uDF85\uDF87-\uDFB0\uDFB2-\uDFBA]|\uD837[\uDF00-\uDF1E\uDF25-\uDF2A]/g,
@@ -156,10 +161,9 @@ var b = {
 // LANGUAGE-SPECIFIC TRIGRAM PATTERNS
 // ========================================
 
-/**
- * Language detection patterns based on character trigrams
- * Each language has its most common trigrams with frequency data
- */
+// Language detection patterns based on character trigrams
+// Each language has its most common trigrams with frequency data
+// Used for statistical matching against input text
 var s = {
   Latin: {
     spa: " de|de |os | la| a |la | y |\xF3n |i\xF3n|es |ere|rec|ien|o a|der|ci\xF3|cho|ech|en |a p|ent|a l|aci|el |na |ona|e d| co|as |da | to|al |ene| en|tod| pe|e l| el|ho |nte| su|per|a t|ad | ti|ers|tie| se|rso|son|e s| pr|o d|oda|te |cia|n d| es|dad|ida| in|ne |est|ion|cio|s d|con|a e| po|men| li|n e|nci|res|su |to |tra| re| lo|tad| na|los|a s| o |ia |que| pa|r\xE1 |pro| un|s y|ual|s e|lib|nac|do |ra |er |a d|ue | qu|e e|sta|nal|ar |nes|ica|a c|ser|or |ter|se |por|cci|io |del|l d|des|ado|les|one|a a|ndi| so| cu|s p|ale|s n|ame|par|ici|oci|una|ber|s t|rta|com| di|dos|e a|imi|o s|e c|ert|las|o p|ant|dic|nto| al|ara|ibe|enc|o e|s l|cas| as|e p|ten|ali|o t|soc|y l|n c|nta|so |tos|y a|ria|n t|die|a u| fu|no |l p|ial|qui|dis|s o|hos|gua|igu| ig| ca|sar|l t| ma|l e|pre| ac|tiv|s a|re |nad|vid|era| tr|ier|cua|n p|ta |cla|ade|bre|s s|esa|ntr|ecc|a i| le|lid|das|d d|ido|ari|ind|ada|nda|fun|mie|ca |tic|eli|y d|nid|e i|odo|ios|o y|esp|iva|y e|mat|bli|r a|dr\xE1|tri|cti|tal|rim|ont|er\xE1|us |sus|end|pen|tor|ito|ond|ori|uie|lig|n a|ist|rac|lar|rse|tar|mo |omo|ibr|n l|edi|med| me|nio|a y|eda|isf|lo |aso|l m|ias|ico|lic|ple|ste|act|tec|ote|rot|ele|ura| ni|ie |adi|u p|seg|s i|un |und|a n|lqu|alq|o i|inc|sti| si|n s|ern",
@@ -572,11 +576,16 @@ var s = {
     ike: "\u1403\u14D0\u14C7|\u1466 \u140A|\u1450\u1403\u14D0|\u1483\u146F\u1466|\u146F\u1466 |\u14AA\u14D7 |\u14BB\u14AA\u14D7|\u140A\u14BB\u14AA| \u140A\u14BB|\u1466\u144E\u140A|\u14C2\u1483\u146F|\u152A\u14D0\u14C7|\u1405\u144E\u1583|\u1466 \u1403|\u14D0\u14C7\u1405|\u1483\u14F4\u1405|\u148D\u1466 |\u14A7\u1466 |\u144E\u1583\u1550|\u1466 \u1431|\u14C4\u1466 | \u1431\u152A|\u14C7\u1405\u144E|\u1405\u155D\u1559| \u1405\u155D| \u146D\u14C7|\u1431\u152A\u14D0|\u14A5\u1483 |\u14C3\u1466 |\u14D0\u14C3\u1466|\u14D8\u14D0\u14C3|\u14C2\u1483 |\u1583\u1585\u1450|\u1466 \u1405|\u1450\u1483\u14F4|\u1466 \u146D|\u14C2\u1550\u14A5|\u14C7\u1483\u146F|\u1433\u1466 |\u1585\u1450\u1483|\u14D0\u14C7\u1550|\u1559\u14D8\u14D0|\u155D\u1559\u14D8|\u146D\u14C7\u1483|\u1483 \u140A| \u1403\u14F1| \u1403\u14C5|\u1550\u14C2\u1550|\u14D0\u14C7\u1585|\u1403\u14F1\u14AA|\u1550\u14A7\u1466|\u1583\u1550\u1433|\u140A\u1466 |\u144E\u140A\u1466|\u146F\u1450\u1403|\u1483\u146F\u1450|\u1550\u1433\u1466|\u14F4\u1405\u1671|\u14C7\u1585 |\u14D7\u14C2 |\u1585\u1455\u1405|\u14C2\u1550\u14A7| \u14C4\u14C7|\u14C7\u1466\u144E|\u144E\u148D\u1466|\u144E\u1483 |\u14D7\u148D |\u14C7\u1550\u14C2|\u1548\u14D0\u14C7|\u14D0\u14C7\u1466|\u144E\u1455\u1405|\u1405\u1671\u14DA|\u1466 \u14F4|\u14D7 \u1403|\u1583\u1550\u14C2| \u1455\u14AA|\u1550\u14C2\u1483|\u153E\u152A\u144E|\u14C2 \u140A|\u14DA\u1585 |\u1431\u1581\u152D| \u1431\u1581|\u144E\u1466\u144E|\u1550\u14A5\u1483|\u1585 \u140A|\u1405\u1449 |\u1671\u14DA\u1585|\u14EF\u14AA\u152A|\u1466 \u14C7|\u1405\u14EF\u14AA|\u1546\u140A\u1583|\u140A\u153E\u1528| \u140A\u153E|\u140A\u1591\u144E| \u140A\u1591|\u1585\u1450\u1403|\u140A\u1550\u14C2|\u144E\u140A\u1585|\u1450\u1466 |\u1455\u1405\u14EF|\u1466 \u1455|\u1583\u144E\u148C|\u14D5\u14AB\u1466|\u14EA\u14D7\u148D|\u14C2\u1450\u1403|\u148B\u1466 |\u14C2\u1585 |\u14D7\u144E\u1483|\u14AA\u1585\u14F1|\u14F1\u14AA\u1585|\u14A5\u14C2\u1483|\u1550\u14D7\u14C2|\u152A\u1583\u1585|\u1403\u14C5\u1583|\u1550\u152A\u140A|\u1595\u14A5\u14C2|\u1550\u14EF\u14AA| \u14F4\u14C7|\u1466 \u14C4| \u14C7\u14C2|\u14EA\u14D5\u140A|\u1585 \u1431|\u14AB\u1466\u144E|\u14D7 \u140A|\u1591\u144E\u1405|\u144E\u14EA\u14D7|\u1455\u1405\u152A|\u1585 \u1403|\u14BB\u14A5\u152D|\u1433\u14BB\u14A5|\u14F4\u1433\u14BB| \u14F4\u1433|\u1483 \u1431|\u14C7\u1595\u14A5| \u14C7\u1595|\u1466 \u1472|\u1466\u144E\u152A|\u14C7\u14C2\u1450| \u140A\u1550|\u1455\u1405\u14C2|\u14D7 \u14C7|\u14C7\u14EA\u14D5| \u14C7\u14EA|\u152D\u1405\u144E| \u1403\u14D5|\u1483 \u1403|\u14F1\u1548\u14D0|\u1585\u14F1\u1548|\u153E\u1528\u1405|\u14C2\u1548\u140A| \u14C2\u1548|\u14A5\u148D\u1466|\u152D\u14A5\u14C2| \u1403\u14DA|\u144E\u14C4\u1466|\u140A\u1585\u1450|\u1593\u148D\u1466|\u1405\u14C2\u1483| \u1403\u14C4|\u1593\u14C4\u1466| \u14AA\u14D5|\u152D\u1405\u152A|\u148B\u152D\u1405| \u140A\u14EF|\u140A\u1550\u14C7|\u14C7\u14D5\u14AB|\u14D0\u14C7\u14D5|\u140A\u1583\u1550|\u14D0\u14C7\u1403|\u15A2\u144E\u1483|\u1550\u15A2\u144E|\u1450\u153E\u1528| \u1472\u1450|\u152A\u1585 |\u1403\u153E\u152A|\u1585\u144E\u1466|\u1585\u1472\u1585|\u144E\u152A\u1583|\u14D7\u148B\u1466| \u140A\u146D|\u14C2 \u1431|\u14A5\u152D\u1405|\u140A\u1585 |\u14EA\u14D7\u14C2|\u1593\u14C2\u1483|\u1585 \u146D|\u1555\u1583\u1585|\u14D0\u14C2\u140A|\u1583\u14C4\u1403| \u1583\u14C4|\u14C7\u1450\u1403|\u14EF\u1405\u144E|\u1403\u14C5\u14EF| \u146D\u14A1| \u140A\u158F|\u14C2\u140A\u1550|\u152A\u140A\u1550|\u1548\u1455\u1405|\u14EF\u14AA\u14C2|\u14C7\u148B\u152D|\u14C4\u14C7\u148B| \u1490\u1559|\u1550\u1555\u1583|\u148D \u140A|\u1550\u14C7\u1405|\u1550\u14A5\u1405|\u1671\u14EA\u14D7|\u14D5\u1405\u1585|\u152A\u1483\u14F4|\u14D7 \u1431|\u1528\u1583\u144E|\u153E\u1528\u1583|\u14C7\u1405\u1449|\u144E\u1405\u1449|\u1550\u14A5\u148D|\u1472\u1450\u153E|\u1405\u152A\u14D0|\u1450\u1403\u153E|\u14EA\u14DA\u1546|\u1585\u144E\u1455| \u14C8\u14DA|\u1472\u1585\u1450|\u1403\u1585\u1472| \u1403\u1585|\u14C2\u1466 |\u1472\u152A\u1585|\u1403\u1472\u152A| \u1403\u1472|\u1583\u1550\u15A2|\u14D7 \u1455|\u1548\u14C2 |\u1583\u14EA\u14DA|\u14F1\u140A\u1550|\u14C7\u14F1\u140A|\u1671\u1466\u1450|\u146D\u14C7\u1450|\u14C2 \u1403|\u1403\u1466 |\u14A5\u14C2\u1585|\u14EA\u14DA\u1466| \u140A\u1455|\u1466 \u1456|\u1466 \u144E|\u140A\u1550\u14A5|\u1466 \u14AA|\u1583\u1585\u14C2|\u14A5\u1466 |\u1405\u152A\u14A5|\u1581\u144E\u148B|\u1466 \u14EF|\u1559\u14D7 |\u155D\u1559\u14D7|\u1490\u1559\u14AA|\u140A\u1550\u1555|\u1483\u14EF\u140A| \u1405\u1583|\u14F1\u14AA\u148B|\u1550\u14D7 |\u1583\u1466\u144E|\u14EF\u14AA\u152D|\u1466 \u1583|\u1455\u1405\u1559|\u14F4\u14C7\u1555|\u14AA\u152D\u14A5|\u1405\u152A\u1585|\u1405\u144E\u1405|\u1555\u1583\u1548| \u1472\u144E|\u1466 \u1450|\u1449 \u1405|\u146D\u14F2\u14C2| \u146D\u14F2|\u14C5\u1583\u144E|\u14C2\u140A\u1585|\u14C2\u1550\u14F4|\u148B\u152D\u14A5|\u1405\u152A\u14C2|\u152A\u1585\u1450|\u14C2\u1593\u148D|\u1405\u1466 |\u14DA\u1550\u152A|\u14EF\u14DA\u1550| \u14EF\u14DA|\u14C7\u1403\u1466|\u1483 \u146D|\u14C2\u1593\u14C2|\u1585\u1450\u1550|\u14A5\u14C2 |\u14C8\u14DA\u1483|\u1466 \u14C8|\u152D\u1483\u14F4|\u144E\u14A7\u1466|\u14F4\u1585\u1455|\u14C4\u14C7\u14A5|\u1405\u144E\u14C4|\u14D7 \u1450|\u144E\u140A\u1550|\u140A\u146D\u154B|\u14F4\u1405\u14C2|\u1583\u14D0\u14C2"
   }
 };
-var E = 2048,
-  C = 10,
-  p = 300,
-  k = {}.hasOwnProperty,
+
+// Configuration constants
+var E = 2048,  // Max text length for analysis
+  C = 10,      // Min text length for detection
+  p = 300,     // Penalty factor for missing trigrams
+  k = {}.hasOwnProperty,  // Safe hasOwnProperty reference
   t, l = {};
+
+// Convert trigram strings to indexed lookup objects
+// Transforms pipe-separated trigrams into position-based maps
 for (t in s)
   if (k.call(s, t)) {
     let i = s[t],
@@ -606,6 +615,8 @@ function K(i, a) {
   return B(i, a)[0][0]
 }
 
+// Main franc detection function with confidence scores
+// Returns array of [language, confidence] pairs sorted by confidence
 function B(i, a = {}) {
   let n = [...a.whitelist || [], ...a.only || []],
     e = [...a.blacklist || [], ...a.ignore || []],
@@ -649,11 +660,13 @@ function N(i, a) {
     } return [e, n]
 }
 
+// Calculate character match ratio for script detection
 function T(i, a) {
   let n = i.match(a);
   return (n ? n.length : 0) / i.length || 0
 }
 
+// Score languages using trigram comparison
 function S(i, a, n, e) {
   a = _(a, n, e);
   let u = [],
@@ -663,6 +676,7 @@ function S(i, a, n, e) {
   return u.length === 0 ? r() : u.sort(M)
 }
 
+// Calculate trigram distance between text and language model
 function I(i, a) {
   let n = 0,
     e = -1;
@@ -674,6 +688,7 @@ function I(i, a) {
   return n
 }
 
+// Filter languages by whitelist/blacklist
 function _(i, a, n) {
   if (a.length === 0 && n.length === 0) return i;
   let e = {},
@@ -682,20 +697,24 @@ function _(i, a, n) {
   return e
 }
 
+// Check if language is allowed by filters
 function c(i, a, n) {
   return a.length === 0 && n.length === 0 ? !0 : (a.length === 0 || a.includes(i)) && !n.includes(i)
 }
 
+// Return undefined language result
 function r() {
   return w("und")
 }
 
+// Wrap single result in array format
 function w(i) {
   return [
     [i, 1]
   ]
 }
 
+// Sort function for confidence scores (descending)
 function M(i, a) {
   return i[1] - a[1]
 }
@@ -704,6 +723,9 @@ function M(i, a) {
 // MODULE EXPORTS
 // ========================================
 
+// Export main detection functions
+// franc: returns single best match
+// francAll: returns all matches with confidence scores
 export {
   K as franc, B as francAll
 };
