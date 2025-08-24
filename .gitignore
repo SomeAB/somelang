@@ -4,3 +4,15 @@ node_modules/
 # Ignore the npm related files
 package-lock.json
 package.json
+
+# Ignore the python venv
+test_env_01/
+
+# Ignore the test framework
+test_framework/
+
+# Ignore the compose file, dockerfile, helper and requirements
+docker-compose.yml
+Dockerfile.fastspell
+compose_helper.py
+requirements.txt
