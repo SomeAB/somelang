@@ -1,3 +1,6 @@
+# Ignore the pycache directories
+__pycache__/
+
 # Ignore the node_modules directory
 node_modules/
 
@@ -16,3 +19,6 @@ docker-compose.yml
 Dockerfile.fastspell
 compose_helper.py
 requirements.txt
+
+# Ignore tests folders
+tests_folder_**/

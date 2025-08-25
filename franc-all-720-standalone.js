@@ -35,6 +35,8 @@ function h(i) {
 // ========================================
 
 // Regular expressions for whitespace handling
+// 'v' is used if 'html' is used, otherwise 'j' is used to match additional whitespace characters including some unicode ones
+// 'g' is global flag in js regex
 var j = /\s+/g,
     v = /[\t\n\v\f\r ]+/g;
 
@@ -45,7 +47,8 @@ var j = /\s+/g,
  * @param {string} i - Input text
  * @param {object} a - Options for normalization
  * @returns {string} Normalized text
- */
+*/
+// Main whitespace normalization function with options for HTML style, line ending preservation, and edge trimming
 function d(i, a) {
   a ? typeof a == "string" && (a = {
     style: a
@@ -54,22 +57,27 @@ function d(i, a) {
   return String(i).replace(a.style === "html" ? v : j, a.trim ? q(n) : n)
 }
 
+// Preserves original line break characters (Windows/Mac/Linux) when normalizing whitespace
 function f(i) {
   let a = /\r?\n|\r/.exec(i);
   return a ? a[0] : " "
 }
 
+// Simple function that always returns a single space for whitespace replacement
 function z() {
   return " "
 }
 
+// Creates a wrapper function that trims whitespace matches at the start and end of strings during replacement
 function q(i) {
   return a;
 
+  // Inner function that performs edge trimming based on match position in the original string
   function a(n, e, u) {
     return e === 0 || e + n.length === u.length ? "" : i(n)
   }
 }
+// Shorthand reference to Object.prototype.hasOwnProperty for checking object properties safely
 var g = {}.hasOwnProperty;
 
 
