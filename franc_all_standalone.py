@@ -155,3 +155,42 @@ def extract_trigrams(text: str) -> List[str]:
 
     # Return the list of trigrams
     return trigrams_list
+
+def generate_trigrams_frequency_map(text: str) -> Dict[str, int]:
+    """Direct port of JavaScript function F(i)"""
+
+    # Get the list of trigrams using our extract_trigrams function
+    trigrams_list = extract_trigrams(text)
+
+    # Initialize an empty frequency map (dictionary)
+    frequency_map = {}
+
+    # Count frequencies of each trigram
+    for trigram in trigrams_list:
+        if trigram in frequency_map:
+            frequency_map[trigram] += 1
+        else:
+            frequency_map[trigram] = 1
+
+    # Return the generated frequency map (dictionary)
+    return frequency_map
+
+def sort_trigrams_by_frequency(text: str) -> List[List]:
+    """Direct port of JavaScript functions y(i) & A(i, a)"""
+
+    # Get frequency map using our generator function
+    frequency_map = generate_trigrams_frequency_map(text)
+
+    # Convert dictionary to list of [trigram, frequency] pairs
+    # The small cost of conversion here is outweighed by use of dictionary in previous function
+    tf_pairs = [] # List initialized
+
+    for trigram, frequency in frequency_map.items():
+        tf_pairs.append([trigram, frequency])
+
+    # Sort the list of [trigram, frequency] pairs in ascending order by frequency
+    tf_pairs.sort(key=lambda column: column[1])
+
+    # Return the sorted list of [trigram, frequency] pairs
+    return tf_pairs
+
