@@ -90,7 +90,68 @@ def clean_text_t01(text: str) -> str:
     # Strip on both ends and convert to lowercase
     return text_normalized.strip().lower()
 
-    
+# ========================================
+# BLUEPRINT OF N-GRAMS EXTRACTION FUNCTIONS
+# ========================================
 
-    
+def ngrams_base_function(n: int):
+    """Direct port of JavaScript function h(i)"""
 
+    # Check if n is either int/float, n is a number, n is a bigger than 1, n is not infinity
+    # n != n is a clever check, since all numbers are equal to themselves, and NaN (Not a Number) is not, as per IEEE 754
+    # n == float('inf') checks if the number is positive infinity, as per IEEE 754
+    if not isinstance(n, (int, float)) or n != n or n < 1 or n == float('inf'):
+        raise ValueError(f"'{n}' is not a valid argument for n-gram extraction function")
+    
+    # Convert to int, if it's a valid float
+    n = int(n)
+
+    def extract_ngrams(text):
+        """Inner function that extracts n-grams from text"""
+
+        # Initialize a list
+        ngrams = []
+
+        # Handle null/None input
+        if text is None:
+            return ngrams
+        
+        # Convert to string (if needed, as per defensive programming)
+        text_str = str(text)
+
+        # Calculate how many n-grams we can extract
+        max_ngrams = (len(text_str) - n) + 1
+
+        # If text is too short, return empty list
+        if max_ngrams < 1:
+            return ngrams
+        
+        # Extract n-grams using 'sliding window' concept
+        # We are using python slicing of the form s[a:b], where we ask for 'a' upto (but not including) 'b' like 0:2, 1:3, etc
+        for i in range(max_ngrams):
+            one_ngram = text_str[i:i + n]
+            ngrams.append(one_ngram)
+        
+        # Return the list containing all the ngrams
+        return ngrams
+    
+    return extract_ngrams
+
+# N-gram extractors for bigrams and trigrams (equivalent to JavaScript: var O = h(2), m = h(3))
+# Used for statistical language detection
+bigrams_extractor = ngrams_base_function(2)
+trigrams_extractor = ngrams_base_function(3)
+
+# ========================================
+# PLACEHOLDER
+# ========================================
+
+def extract_trigrams(text: str) -> List[str]:
+    """Direct port of JavaScript function D(i)"""
+
+    # Add some padding on both ends, and use our trigrams extractor function on cleaned text
+    # Equivalent to js: m(" " + x(i) + " ")
+    trigrams_list = trigrams_extractor(" " + clean_text_t01(text) + " ")
+
+    # Return the list of trigrams
+    return trigrams_list
