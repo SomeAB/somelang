@@ -702,3 +702,238 @@ LANGUAGE_TRIGRAMS: Dict[str, Dict[str, Dict[str, int]]] = {
         'ike': {'ᐃᓐᓇ': 0, 'ᑦ ᐊ': 1, 'ᑐᐃᓐ': 2, 'ᒃᑯᑦ': 3, 'ᑯᑦ ': 4, 'ᒪᓗ ': 5, 'ᒻᒪᓗ': 6, 'ᐊᒻᒪ': 7, ' ᐊᒻ': 8, 'ᑦᑎᐊ': 9, 'ᓂᒃᑯ': 10, 'ᔪᓐᓇ': 11, 'ᐅᑎᖃ': 12, 'ᑦ ᐃ': 13, 'ᓐᓇᐅ': 14, 'ᒃᓴᐅ': 15, 'ᒍᑦ ': 16, 'ᒧᑦ ': 17, 'ᑎᖃᕐ': 18, 'ᑦ ᐱ': 19, 'ᓄᑦ ': 20, ' ᐱᔪ': 21, 'ᓇᐅᑎ': 22, 'ᐅᕝᕙ': 23, ' ᐅᕝ': 24, ' ᑭᓇ': 25, 'ᐱᔪᓐ': 26, 'ᒥᒃ ': 27, 'ᓃᑦ ': 28, 'ᓐᓃᑦ': 29, 'ᓘᓐᓃ': 30, 'ᓂᒃ ': 31, 'ᖃᖅᑐ': 32, 'ᑦ ᐅ': 33, 'ᑐᒃᓴ': 34, 'ᑦ ᑭ': 35, 'ᓂᕐᒥ': 36, 'ᓇᒃᑯ': 37, 'ᐳᑦ ': 38, 'ᖅᑐᒃ': 39, 'ᓐᓇᕐ': 40, 'ᕙᓘᓐ': 41, 'ᕝᕙᓘ': 42, 'ᑭᓇᒃ': 43, 'ᒃ ᐊ': 44, ' ᐃᓱ': 45, ' ᐃᓅ': 46, 'ᕐᓂᕐ': 47, 'ᓐᓇᖅ': 48, 'ᐃᓱᒪ': 49, 'ᕐᒧᑦ': 50, 'ᖃᕐᐳ': 51, 'ᐊᑦ ': 52, 'ᑎᐊᑦ': 53, 'ᑯᑐᐃ': 54, 'ᒃᑯᑐ': 55, 'ᕐᐳᑦ': 56, 'ᓴᐅᙱ': 57, 'ᓇᖅ ': 58, 'ᓗᓂ ': 59, 'ᖅᑕᐅ': 60, 'ᓂᕐᒧ': 61, ' ᓄᓇ': 62, 'ᓇᑦᑎ': 63, 'ᑎᒍᑦ': 64, 'ᑎᒃ ': 65, 'ᓗᒍ ': 66, 'ᓇᕐᓂ': 67, 'ᕈᓐᓇ': 68, 'ᓐᓇᑦ': 69, 'ᑎᑕᐅ': 70, 'ᐅᙱᓚ': 71, 'ᑦ ᓴ': 72, 'ᓗ ᐃ': 73, 'ᖃᕐᓂ': 74, ' ᑕᒪ': 75, 'ᕐᓂᒃ': 76, 'ᔾᔪᑎ': 77, 'ᓂ ᐊ': 78, 'ᓚᖅ ': 79, 'ᐱᖁᔭ': 80, ' ᐱᖁ': 81, 'ᑎᑦᑎ': 82, 'ᕐᒥᒃ': 83, 'ᖅ ᐊ': 84, 'ᐅᑉ ': 85, 'ᙱᓚᖅ': 86, 'ᓯᒪᔪ': 87, 'ᑦ ᓇ': 88, 'ᐅᓯᒪ': 89, 'ᕆᐊᖃ': 90, 'ᐊᔾᔨ': 91, ' ᐊᔾ': 92, 'ᐊᖑᑎ': 93, ' ᐊᖑ': 94, 'ᖅᑐᐃ': 95, 'ᐊᕐᓂ': 96, 'ᑎᐊᖅ': 97, 'ᑐᑦ ': 98, 'ᑕᐅᓯ': 99, 'ᑦ ᑕ': 100, 'ᖃᑎᒌ': 101, 'ᓕᒫᑦ': 102, 'ᓪᓗᒍ': 103, 'ᓂᑐᐃ': 104, 'ᒋᑦ ': 105, 'ᓂᖅ ': 106, 'ᓗᑎᒃ': 107, 'ᒪᖅᓱ': 108, 'ᓱᒪᖅ': 109, 'ᒥᓂᒃ': 110, 'ᕐᓗᓂ': 111, 'ᔪᖃᖅ': 112, 'ᐃᓅᖃ': 113, 'ᕐᔪᐊ': 114, 'ᖕᒥᓂ': 115, 'ᕐᓯᒪ': 116, ' ᓴᓇ': 117, 'ᑦ ᓄ': 118, ' ᓇᓂ': 119, 'ᓪᓕᐊ': 120, 'ᖅ ᐱ': 121, 'ᒫᑦᑎ': 122, 'ᓗ ᐊ': 123, 'ᖑᑎᐅ': 124, 'ᑎᓪᓗ': 125, 'ᑕᐅᔪ': 126, 'ᖅ ᐃ': 127, 'ᒻᒥᔭ': 128, 'ᐳᒻᒥ': 129, 'ᓴᐳᒻ': 130, ' ᓴᐳ': 131, 'ᒃ ᐱ': 132, 'ᓇᖕᒥ': 133, ' ᓇᖕ': 134, 'ᑦ ᑲ': 135, 'ᑦᑎᔪ': 136, 'ᓇᓂᑐ': 137, ' ᐊᕐ': 138, 'ᑕᐅᓂ': 139, 'ᓗ ᓇ': 140, 'ᓇᓪᓕ': 141, ' ᓇᓪ': 142, 'ᔭᐅᑎ': 143, ' ᐃᓕ': 144, 'ᒃ ᐃ': 145, 'ᓱᕈᓐ': 146, 'ᖅᓱᕈ': 147, 'ᔾᔨᐅ': 148, 'ᓂᕈᐊ': 149, ' ᓂᕈ': 150, 'ᒥᒍᑦ': 151, 'ᔭᒥᓂ': 152, ' ᐃᓚ': 153, 'ᑎᓄᑦ': 154, 'ᐊᖅᑐ': 155, 'ᖓᒍᑦ': 156, 'ᐅᓂᒃ': 157, ' ᐃᓄ': 158, 'ᖓᓄᑦ': 159, ' ᒪᓕ': 160, 'ᔭᐅᔪ': 161, 'ᒋᔭᐅ': 162, ' ᐊᓯ': 163, 'ᐊᕐᓇ': 164, 'ᓇᓕᒫ': 165, 'ᓐᓇᓕ': 166, 'ᐊᖃᕐ': 167, 'ᓐᓇᐃ': 168, 'ᖢᑎᒃ': 169, 'ᕐᖢᑎ': 170, 'ᑐᔾᔨ': 171, ' ᑲᑐ': 172, 'ᔪᖅ ': 173, 'ᐃᔾᔪ': 174, 'ᖅᑎᑦ': 175, 'ᖅᑲᖅ': 176, 'ᑎᔪᖃ': 177, 'ᓗᒋᑦ': 178, ' ᐊᑭ': 179, 'ᓂ ᐱ': 180, 'ᒥᔭᐅ': 181, 'ᐊᖅ ': 182, 'ᓪᓗᓂ': 183, 'ᖓᓂᒃ': 184, 'ᖅ ᑭ': 185, 'ᕕᖃᖅ': 186, 'ᓐᓂᐊ': 187, 'ᖃᓄᐃ': 188, ' ᖃᓄ': 189, 'ᓇᑐᐃ': 190, 'ᓯᐅᑎ': 191, 'ᐃᓅᓯ': 192, ' ᑭᒡ': 193, ' ᐊᖏ': 194, 'ᓂᐊᕐ': 195, 'ᔪᐊᕐ': 196, 'ᕈᑕᐅ': 197, 'ᓯᒪᓂ': 198, 'ᓇᒋᔭ': 199, 'ᓄᓇᒋ': 200, ' ᒐᕙ': 201, 'ᕐᕕᖃ': 202, 'ᒍ ᐊ': 203, 'ᕐᓇᐅ': 204, 'ᕐᒥᐅ': 205, 'ᙱᓪᓗ': 206, 'ᓕᐅᖅ': 207, 'ᔪᒃᓴ': 208, 'ᓗ ᐱ': 209, 'ᔨᖃᑎ': 210, 'ᔾᔨᖃ': 211, 'ᓇᐅᑉ': 212, 'ᑎᐅᑉ': 213, 'ᕐᒥᒍ': 214, 'ᑲᑐᔾ': 215, 'ᐅᔪᓐ': 216, 'ᑐᐃᔾ': 217, 'ᓪᓚᕆ': 218, 'ᖅᑎᑕ': 219, ' ᓈᓚ': 220, 'ᑲᖅᑐ': 221, 'ᐃᖅᑲ': 222, ' ᐃᖅ': 223, 'ᓂᑦ ': 224, 'ᑲᔪᖅ': 225, 'ᐃᑲᔪ': 226, ' ᐃᑲ': 227, 'ᖃᕐᖢ': 228, 'ᓗ ᑕ': 229, 'ᕈᓂ ': 230, 'ᖃᓪᓚ': 231, 'ᓱᐊᕐ': 232, 'ᓇᓱᐊ': 233, 'ᙱᑦᑐ': 234, 'ᑭᓇᑐ': 235, 'ᓂ ᐃ': 236, 'ᐃᑦ ': 237, 'ᒥᓂᖅ': 238, 'ᓪᓚᑦ': 239, ' ᐊᑕ': 240, 'ᑦ ᑖ': 241, 'ᑦ ᑎ': 242, 'ᐊᕐᒥ': 243, 'ᑦ ᒪ': 244, 'ᖃᖅᓂ': 245, 'ᒥᑦ ': 246, 'ᐅᔪᒥ': 247, 'ᖁᑎᒋ': 248, 'ᑦ ᓯ': 249, 'ᕙᓗ ': 250, 'ᕝᕙᓗ': 251, 'ᒐᕙᒪ': 252, 'ᐊᕐᕕ': 253, 'ᒃᓯᐊ': 254, ' ᐅᖃ': 255, 'ᓱᒪᒋ': 256, 'ᕐᓗ ': 257, 'ᖃᑦᑎ': 258, 'ᓯᒪᔭ': 259, 'ᑦ ᖃ': 260, 'ᑕᐅᕙ': 261, 'ᓴᓇᕕ': 262, 'ᒪᔭᒥ': 263, 'ᐅᔪᖅ': 264, 'ᐅᑎᐅ': 265, 'ᕕᖃᕈ': 266, ' ᑲᑎ': 267, 'ᑦ ᑐ': 268, 'ᑉ ᐅ': 269, 'ᑭᓲᓂ': 270, ' ᑭᓲ': 271, 'ᓅᖃᑎ': 272, 'ᓂᐊᖅ': 273, 'ᓂᕐᓴ': 274, 'ᒋᔭᒥ': 275, 'ᐅᔪᓂ': 276, 'ᔪᖅᑐ': 277, 'ᓂᖓᒍ': 278, 'ᐅᑦ ': 279, 'ᓚᕐᔪ': 280, 'ᓯᓚᕐ': 281, ' ᓯᓚ': 282, 'ᓇᐃᑦ': 283, 'ᒃ ᑭ': 284, 'ᓂᖓᓂ': 285, 'ᖅᑐᕐ': 286, 'ᒥᓂ ': 287, 'ᓈᓚᒃ': 288, 'ᑦ ᓈ': 289, 'ᔭᒃᓴ': 290, 'ᑎᒧᑦ': 291, 'ᓴᖅᑕ': 292, 'ᓄᓇᒥ': 293, 'ᐅᑎᓄ': 294, 'ᓗ ᑐ': 295, 'ᑎᐊᕐ': 296, 'ᐊᑭᕋ': 297, 'ᓴᐅᓂ': 298, 'ᖃᓐᓂ': 299}
     }
 }
+
+# ========================================
+# SCORING FUNCTIONS
+# ========================================
+
+def calculate_trigrams_distance(input_trigrams: List[List], language_model: Dict[str, int]) -> int:
+    """ Direct port of Javascript function I(i, a) """
+
+    # Equivalent to 'p' in Javascript
+    # 300 is based on no of trigrams per language, which is 300 currently (0-299). Needs to be updated when no of trigrams are changed
+    PENALTY_FACTOR = 300 # Can perhaps be moved to the top as a global constant later on
+    total_distance = 0 # lower means better match
+
+    # Iterate through each trigram, frequency pair, start with maximum penalty
+    for trigram_pair in input_trigrams:
+        current_trigram = trigram_pair[0]
+        penalty = PENALTY_FACTOR
+
+        # If trigram exists in language model
+        if current_trigram in language_model:
+            # Calculate position difference
+            input_freq_rank = trigram_pair[1] # u[1] in js
+            model_position = language_model[current_trigram] # a[u[0]] in js
+            penalty = input_freq_rank - model_position - 1
+
+            # Take absolute value if negative
+            if penalty < 0:
+                penalty = -penalty
+
+        # Calculate total distance by adding the penalty per trigram
+        total_distance += penalty
+
+    # Return the total distance. Lower means better match
+    return total_distance
+
+
+def is_language_allowed(lang_code: str, whitelist: List[str], blacklist: List[str]) -> bool:
+    """ Direct port of Javascript function c(i, a, n)"""
+
+    # If no whitelist provided, initialize an empty whitelist
+    if not whitelist:
+        whitelist = []
+
+    # If no blacklist provided, initialize an empty blacklist
+    if not blacklist:
+        blacklist = []
+
+    # If both whitelist and blacklist are empty, the language is allowed
+    if len(whitelist) == 0 and len(blacklist) == 0:
+        return True
+
+    # Returns a single bool value
+    # Don't worry, handles all scenarios correctly
+    return (len(whitelist) == 0 or lang_code in whitelist) and (lang_code not in blacklist)
+
+def filter_languages_by_whitelist_blacklist(languages_dict: Dict[str, Dict], whitelist: List[str], blacklist: List[str]) -> Dict[str, Dict]:
+    """ Direct port of Javascript function _(i, a, n)"""
+
+    # If no whitelist provided, initialize an empty whitelist
+    if not whitelist:
+        whitelist = []
+
+    # If no blacklist provided, initialize an empty blacklist
+    if not blacklist:
+        blacklist = []
+
+    # If no filters, return all languages
+    if len(whitelist) == 0 and len(blacklist) == 0:
+        return languages_dict
+    
+    # Initialize a dictionary to hold only the allowed languages
+    allowed_languages = {}
+
+    # Iterate through the languages & their trigram data
+    for lang_code, lang_data in languages_dict.items():
+        # Check if the language is allowed using our helper function
+        if is_language_allowed(lang_code, whitelist, blacklist):
+            # If allowed, add the allowed language & its trigram data to allowed_languages dictionary
+            allowed_languages[lang_code] = lang_data
+
+    # Return the subset dictionary containing only the allowed languages
+    return allowed_languages
+
+def handle_undefined_result() -> List[List]:
+    """ Direct port of Javascript function r() """
+    return [["und", 1]]
+
+def handle_single_result(lang_code: str) -> List[List]:
+    """ Direct port of Javascript function w(i) """
+    return [[lang_code, 1]]
+
+def score_languages(input_trigrams: List[List], candidate_languages: Dict[str, Dict], whitelist: List[str] = None, blacklist: List[str] = None) -> List[List]:
+    """ Direct port of Javascript function S(i, a, n, e) """
+
+    # Get list of allowed languages using our helper function
+    allowed_languages = filter_languages_by_whitelist_blacklist(candidate_languages, whitelist, blacklist)
+
+    # If no languages are allowed, return undefined result
+    if not allowed_languages:
+        return handle_undefined_result()
+
+    # Initialize a list to hold the results in the form language_code, distance_score
+    results = []
+
+    # Score each allowed language by calculating trigram distance (lower is better)
+    for lang_code, lang_data in allowed_languages.items():
+        # Calculate the distance score for the current language
+        distance_score = calculate_trigrams_distance(input_trigrams, lang_data)
+
+        # Append the language code and its distance score to the results
+        results.append([lang_code, distance_score])
+
+    # Return undefined, if no results
+    if len(results) == 0:
+        return handle_undefined_result()
+    
+    # Sort the results by distance_score (lower is better)
+    # This is equivalent to js function M(i, a)
+    results.sort(key=lambda x: x[1])
+
+    # Return the final sorted results as a list
+    return results
+
+def normalize_scores(text: str, raw_scores: List[List]) -> List[List]:
+    """ Direct port of Javascript function L(i, a) """
+
+    # No need for empty check due to handle_undefined_results being used in helper function
+
+    # Get best(lowest) distance score from the already sorted results list. 0 is the first pair, and 1 is the score of that language
+    best_score = raw_scores[0][1]
+
+    # Equivalent to 'p' in Javascript
+    # 300 is based on no of trigrams per language, which is 300 currently (0-299). Needs to be updated when no of trigrams are changed
+    PENALTY_FACTOR = 300 # Can perhaps be moved to the top as a global constant later on
+
+    # len(text)*PENALTY_FACTOR is the theoritical maximum possible distance for a given text
+    # score_range is just how much room is left after best_score is substracted from maximum distance, for placing the the rest of the languages & their scores
+    score_range = len(text) * PENALTY_FACTOR - best_score
+
+    # Iterate through the list of raw scores
+    for i in range(len(raw_scores)):
+
+        # Extract the language code which is the first element hence '0'
+        lang_code = raw_scores[i][0]
+
+        # Extract the language distance score which is the second element hence '1'
+        raw_distance = raw_scores[i][1]
+        
+        # In the case of first language, confidence gets calculated as 1, as it is already sorted to have best score
+        # For the rest the score is between 1 and 0, getting proportionally lower with each language
+        if score_range > 0:
+            confidence = 1 - (raw_distance - best_score) / score_range
+        else:
+            confidence = 0
+        
+        # If confidence is negative, return 0
+        confidence = confidence if confidence >= 0 else 0
+
+        # Update the second element in raw_scores to be the normalized score i.e., confidence
+        raw_scores[i][1] = confidence
+    
+    # Return the final language, normalized score combo as a list
+    return raw_scores
+
+def all_detected_languages(text: str, options: dict = None) -> List[List]:
+    """ Direct Port of Javascript function B() """
+
+    # Because dict is a 'mutable' type, we do not initialize it in the function definition itself, but here instead
+    # This way, a fresh dictionary is created each time, instead of once, thus avoiding unpredictable behavior
+    # This also handles the case where no options are provided
+    if options is None:
+        options = {}
+
+    # Extract whitelist languages from options
+    whitelist = []
+    if options.get('whitelist'):
+        whitelist.extend(options['whitelist'])
+
+    # Use the alternate option name 'only'
+    if options.get('only'):
+        whitelist.extend(options['only'])
+
+    # Extract blacklist languages from options
+    blacklist = []
+    if options.get('blacklist'):
+        blacklist.extend(options['blacklist'])
+
+    # Use the alternate option name 'ignore'
+    if options.get('ignore'):
+        blacklist.extend(options['ignore'])
+
+    # Hardcoded minimum text length for fallback, can be moved to top as global constant later
+    MIN_LENGTH = 10
+
+    # Can also get minimum length from options
+    min_length = options.get('minLength', MIN_LENGTH)
+
+    # If the text is too short, return undefined
+    if not text or len(text) < min_length:
+        return handle_undefined_result()
+    
+    # Hardcoded maximum text length for fallback, can be moved to top as global constant later
+    MAX_LENGTH = 2048
+    
+    # Truncate text to maximum length
+    text = text[:MAX_LENGTH]
+
+    # Detect dominant script
+    script, confidence = detect_dominant_script(text, UNICODE_SCRIPT_PATTERNS)
+
+    # If no known script detected, return undefined
+    if not script:
+        return handle_undefined_result()
+
+    # Check if script is in our top-level of our LANGUAGE_TRIGRAMS dictionary, which is scripts actually
+    if script not in LANGUAGE_TRIGRAMS:
+        if confidence == 0 or not is_language_allowed(script, whitelist, blacklist):
+            return handle_undefined_result()
+        return handle_single_result(script)
+
+    # Generate trigrams from text
+    input_trigrams = sort_trigrams_by_frequency(text)
+
+    # Get list of languages in the given script from all languages available to us
+    select_languages = LANGUAGE_TRIGRAMS[script]
+
+    # Calculate and get raw scores
+    raw_scores = score_languages(input_trigrams, select_languages, whitelist, blacklist)
+
+    # Return the pairs of detected languages and their scores as a list after normalizing scores
+    return normalize_scores(text, raw_scores)
+
+def best_detected_language(text: str, options: dict = None) -> str:
+    """Direct port of Javascript function K(i, a)"""
+    return all_detected_languages(text, options)[0][0]
