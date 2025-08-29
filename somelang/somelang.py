@@ -1,67 +1,25 @@
 """
-Franc All Standalone - Python Port by SomeAB
-Version: 0.01
+SomeLang - by SomeAB
 
-This is a single file standalone implementation of the Franc language detection library. This is based on the 'all' version that contains the maximum number of supported languages.
+This is a natural language detection library
 
 """
 
 # Core Python Imports
 import re # for regular expressions
-from typing import Dict, List, Tuple, Optional, Union # for type hinting
-from collections import defaultdict # for default dictionary
+from typing import Dict, List, Tuple, Optional # for type hinting
 
 # Import default trigrams data
 from .default_trigrams import LANGUAGE_TRIGRAMS
+
+# Import default whitelist
+# USE THIS FOR BETTER ACCURACY ON SHORTER TEXT ( text < 100 characters )
+from .default_whitelist import DEFAULT_WHITELIST
 
 # Constants
 PENALTY_FACTOR = 300 # This is based on no of trigrams we have for each language. Update this, if no of trigrams changes in future
 MIN_LENGTH = 10 # Minimum length of text. Below this, undefined result will be returned
 MAX_LENGTH = 2048 # Maximum length of text. Beyond this, it will be truncated
-
-# Default whitelist that excludes obscure languages while keeping major world languages
-# Excludes problematic languages like Bhojpuri (bho), Maithili (mai), Magahi (mag) that cause mismatches
-# Updated to remove sot, sco and add major Eastern languages (cmn, jpn, kor)
-# Includes ~210 major languages out of 385 total languages
-DEFAULT_WHITELIST = [
-    # Major European languages
-    'eng', 'fra', 'deu', 'ita', 'spa', 'por', 'nld', 'pol', 'rus', 'ukr',
-    'ces', 'hun', 'ron', 'hrv', 'srp', 'bos', 'slv', 'slk', 'bul',
-    'lit', 'lvs', 'ekk', 'fin', 'swe', 'nob', 'nno', 'dan', 'isl', 'fao',
-    'eus', 'cat', 'glg', 'ast', 'cos', 'vec', 'lij', 'fry',
-    'ltz', 'gle', 'gla', 'cym', 'mlt', 'bel', 'hsb', 'lad',
-    
-    # Major Asian languages (including Eastern languages without trigram data)
-    'arb', 'heb', 'tur', 'azb', 'azj', 'kaz', 'kir', 'tuk', 'tgk',
-    'prs', 'pes', 'urd', 'hin', 'mar', 'bod', 'uig', 'ind', 'jav', 'sun', 
-    'mad', 'min', 'bug', 'ban', 'ace', 'vie', 'tgl', 'ceb', 'hil', 'war', 
-    'pam', 'ilo', 'mya', 'amh', 'tir', 'cmn', 'jpn', 'kor',
-    
-    # Major African languages
-    'som', 'hau', 'fuv', 'yor', 'ibo', 'swh', 'zul', 'xho', 'afr', 'nso', 
-    'tsn', 'ven', 'ssw', 'nbl', 'run', 'kin', 'lug', 'lin', 'wol', 
-    'men', 'tem', 'kri', 'pcm', 'twi', 'ewe', 'gaa', 'mos', 'sna', 'nya', 
-    'bem', 'loz', 'kmb', 'umb', 'ndo', 'sag', 'suk', 'tiv', 'srr', 
-    'dyu', 'bam', 'fon', 'fat', 'dag',
-    
-    # Major American languages
-    'que', 'quc', 'qug', 'quy', 'quz', 'hat', 'nav', 'cak', 'mam', 'kek', 
-    'tzm', 'arn', 'auc', 'gyr', 'cab', 'cof', 'pbb', 'gug', 'hus', 
-    'maz', 'ote', 'pap', 'guc',
-    
-    # Pacific and other major languages
-    'haw', 'smo', 'fij', 'ton', 'rar', 'pau', 'pon', 'yap', 'bis', 
-    'niu', 'tah', 'mri',
-    
-    # Additional important/classical languages
-    'lat', 'san', 'ido',
-    
-    # Regional languages with significant populations (only with trigram data)
-    'aar', 'khk', 'sah', 'evn', 'chv', 'koi', 'krl', 'crh', 'gag', 
-    'kaa', 'tyv', 'kjh', 'alt', 'yrk', 'niv', 'oss', 'kbd', 'ady', 
-    'abk', 'fur', 'gsw', 'lld', 'lij',
-    'wln', 'rmn', 'rup'
-]
 
 # ========================================
 # TEXT PROCESSING AND NORMALIZATION
@@ -342,9 +300,8 @@ def detect_dominant_script(text: str, script_patterns: Dict[str, re.Pattern] = N
     # Return the name of the best matching script and its score
     return best_script, best_score
 
-
 # ========================================
-# SCORING FUNCTIONS
+# SCORING & HELPER FUNCTIONS
 # ========================================
 
 def calculate_trigrams_distance(input_trigrams: List[List], language_model: Dict[str, int]) -> int:
@@ -373,7 +330,6 @@ def calculate_trigrams_distance(input_trigrams: List[List], language_model: Dict
 
     # Return the total distance. Lower means better match
     return total_distance
-
 
 def is_language_allowed(lang_code: str, whitelist: List[str], blacklist: List[str]) -> bool:
     """ Direct port of Javascript function c(i, a, n)"""
@@ -498,6 +454,10 @@ def normalize_scores(text: str, raw_scores: List[List]) -> List[List]:
     
     # Return the final language, normalized score combo as a list
     return raw_scores
+
+# ========================================
+# MAIN FUNCTIONS
+# ========================================
 
 def all_detected_languages(text: str, options = None) -> List[List]:
     """ Direct Port of Javascript function B() """

@@ -3,11 +3,7 @@ This file contains the default trigrams data for certain languages
 """
 
 # Core python imports
-from typing import Dict, List, Tuple, Optional, Union # for type hinting
-
-# ========================================
-# TRIGRAMS DATA
-# ========================================
+from typing import Dict # for type hinting
 
 LANGUAGE_TRIGRAMS: Dict[str, Dict[str, Dict[str, int]]] = {
     'Latin': {
