@@ -1,0 +1,11 @@
+LICENSE
+README.md
+setup.py
+somelang/__init__.py
+somelang/__main__.py
+somelang/default_trigrams.py
+somelang/somelang.py
+somelang.egg-info/PKG-INFO
+somelang.egg-info/SOURCES.txt
+somelang.egg-info/dependency_links.txt
+somelang.egg-info/top_level.txt

@@ -1,0 +1,58 @@
+Metadata-Version: 2.4
+Name: somelang
+Version: 0.0.2
+Summary: Language Detection Library
+Home-page: https://github.com/SomeAB/somelang
+Author: SomeAB
+Author-email: ssabs@protonmail.com
+Project-URL: Bug Reports, https://github.com/SomeAB/somelang/issues
+Project-URL: Source, https://github.com/SomeAB/somelang
+Keywords: language detection,nlp,text analysis,linguistics
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Text Processing :: Linguistic
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license-file
+Dynamic: project-url
+Dynamic: requires-python
+Dynamic: summary
+
+# SomeLang
+
+**Advanced Language Detection Library** 
+
+🚧 **This is a name reservation package** 🚧
+
+The full implementation of SomeLang is currently in development. This package reserves the name on PyPI.
+
+## Coming Soon
+
+- Fast and accurate language detection
+- Support for 190+ languages  
+- Customizable whitelists
+- High-performance trigram analysis
+- Python-native implementation
+
+## About
+
+SomeLang answers the question: "What language is that?" with high accuracy and performance.
+
+**Author:** SomeAB  
+**Status:** In Development  
+**License:** MIT

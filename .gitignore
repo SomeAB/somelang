@@ -10,6 +10,7 @@ package.json
 
 # Ignore the python venv
 test_env_01/
+somelang_env/
 
 # Ignore the test framework
 test_framework/
@@ -22,3 +23,6 @@ requirements.txt
 
 # Ignore tests folders
 tests_folder_**/
+
+# Ignore PyPI configuration
+.pypirc
