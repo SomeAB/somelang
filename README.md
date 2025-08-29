@@ -1,10 +1,10 @@
 # SomeLang
 
-**Advanced Language Detection Library** 
+**Natural Language Detection Library** 
 
-🚧 **This is a name reservation package** 🚧
+🚧 **Currently in early development** 🚧
 
-The full implementation of SomeLang is currently in development. This package reserves the name on PyPI.
+Stay tuned for updates!
 
 ## Coming Soon
 
