@@ -29,3 +29,11 @@ franc_js/
 
 # Ignore PyPI configuration
 .pypirc
+
+# Ignore the github folder
+.github/
+
+# Ignore the build related folders
+build/
+dist/
+somelang.egg-info/
