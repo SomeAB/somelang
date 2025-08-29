@@ -24,5 +24,8 @@ requirements.txt
 # Ignore tests folders
 tests_folder_**/
 
+# Ignore JavaScript/development files
+franc_js/
+
 # Ignore PyPI configuration
 .pypirc
