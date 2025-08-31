@@ -39,4 +39,6 @@ raw_data/
 training_data/
 trigrams_data/
 
+# Ignore the dev files
+_dev_docs/
 
