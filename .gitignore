@@ -31,15 +31,14 @@ build/
 dist/
 somelang.egg-info/
 
-# Ignore the raw data folder
-raw_data/
-
 # Ignore the AI generated scripts folder
 scripts/
 
 # Ignore the training data folder
+raw_data/
 training_data/
+trigrams_data/
 
 # Ignore some files temporarily
 trainer.py
-trigrams_data_0002.py
+
