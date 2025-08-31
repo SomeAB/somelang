@@ -6,8 +6,8 @@ This is a natural language detection library
 """
 
 # Core Python Imports
-import re # for regular expressions
-from typing import Dict, List, Tuple, Optional # for type hinting
+import re # For regular expressions
+from typing import Dict, List, Tuple, Optional # For type hinting
 
 # Import default trigrams data
 from .default_trigrams import LANGUAGE_TRIGRAMS
