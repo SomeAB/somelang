@@ -39,6 +39,4 @@ raw_data/
 training_data/
 trigrams_data/
 
-# Ignore some files temporarily
-trainer.py
 
