@@ -20,7 +20,7 @@ from .somelang import (
 )
 
 # Constants
-MAX_TRAINING_FILE_SIZE = 4096 # Maximum file size for training data in MB
+MAX_TRAINING_FILE_SIZE = 10240 # Maximum file size for training data in MB
 REQUIRED_COLUMNS = ['text', 'language', 'script'] # This is the list of expected columns in parquet file. Change these if using a different dataset. Keep first element as text
 MIN_TEXT_LENGTH = 3 # Minimum length of the text inside each text column in each row
 MAX_TEXT_LENGTH = 2048 # Maximum length of the text inside each text column in each row

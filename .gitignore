@@ -42,3 +42,5 @@ trigrams_data/
 # Ignore the dev files
 _dev_docs/
 
+# Temporary Ignores
+eng_Latn_sample.parquet
