@@ -1,5 +1,5 @@
 """
-This file contains the comprehensive script detection patterns for various languages
+This file contains the comprehensive script detection patterns for various scripts standardized in both Unicode and ISO 15924
 Unicode version: 16.0
 """
 
@@ -200,360 +200,225 @@ _mende_kikakui_pattern = re.compile(r'[\U0001E800-\U0001E8DF]')
 ALL_SCRIPT_PATTERNS: Mapping[str, re.Pattern] = MappingProxyType({
     
     'Latn': _latin_pattern,
-    'Latin': _latin_pattern,
-
-    # Chinese Scripts Group
-
     'Hant': _cjk_pattern,
-    'Traditional': _cjk_pattern,
-
     'Hans': _cjk_pattern,
-    'Simplified': _cjk_pattern,
-
     'Arab': _arabic_pattern,
-    'Arabic': _arabic_pattern,
-
     'Deva': _devanagari_pattern,
-    'Devanagari': _devanagari_pattern,
-    
     'Cyrl': _cyrillic_pattern,
-    'Cyrillic': _cyrillic_pattern,
-
     'Beng': _bengali_assamese_pattern,
-    'Bangla': _bengali_assamese_pattern,
-
-    # Japanese Scripts Group
-
     'Jpan': _full_japanese_pattern,
-    'Japanese': _full_japanese_pattern,
-
     'Hrkt': _japanese_without_chinese_pattern,
-    'Japanese syllabaries': _japanese_without_chinese_pattern,
-
     'Hira': _hiragana_pattern,
-    'Hiragana': _hiragana_pattern,
-
     'Kana': _katakana_pattern,
-    'Katakana': _katakana_pattern,
-
-    # Korean Scripts Group
-
     'Kore': _korean_pattern,
-    'Korean': _korean_pattern,
-
     'Hang': _hangul_pattern,
-    'Hangul': _hangul_pattern,
-
-    # Indic Scripts Group
-
-    'Ahom': _ahom_pattern, # Both code and verbose name are same
-
+    'Ahom': _ahom_pattern,
     'Bhks': _bhaiksuki_pattern,
-    'Bhaiksuki': _bhaiksuki_pattern,
-
     'Brah': _brahmi_pattern,
-    'Brahmi': _brahmi_pattern,
-
     'Cakm': _chakma_pattern,
-    'Chakma': _chakma_pattern,
-
     'Diak': _dives_akuru_pattern,
-    'Dives Akuru': _dives_akuru_pattern,
-
     'Dogr': _dogra_pattern,
-    'Dogra': _dogra_pattern,
-
     'Gran': _grantha_pattern,
-    'Grantha': _grantha_pattern,
-
     'Gujr': _gujarati_pattern,
-    'Gujarati': _gujarati_pattern,
-
     'Gong': _gunjala_gondi_pattern,
-    'Gunjala Gondi': _gunjala_gondi_pattern,
-
     'Guru': _gurmukhi_pattern,
-    'Gurmukhi': _gurmukhi_pattern,
-
     'Gukh': _gurung_khema_pattern,
-    'Gurung Khema': _gurung_khema_pattern,
-
     'Kthi': _kaithi_pattern,
-    'Kaithi': _kaithi_pattern,
-
     'Knda': _kannada_pattern,
-    'Kannada': _kannada_pattern,
-
     'Khar': _kharoshthi_pattern,
-    'Kharoshthi': _kharoshthi_pattern,
-
     'Khoj': _khojki_pattern,
-    'Khojki': _khojki_pattern,
-
     'Krai': _kirat_rai_pattern,
-    'Kirat Rai': _kirat_rai_pattern,
-
     'Sind': _khudawadi_pattern,
-    'Khudawadi': _khudawadi_pattern,
-
     'Lepc': _lepcha_pattern,
-    'Lepcha': _lepcha_pattern,
-
     'Limb': _limbu_pattern,
-    'Limbu': _limbu_pattern,
-
     'Mahj': _mahajani_pattern,
-    'Mahajani': _mahajani_pattern,
-
     'Mlym': _malayalam_pattern,
-    'Malayalam': _malayalam_pattern,
-
     'Gonm': _masaram_gondi_pattern,
-    'Masaram Gondi': _masaram_gondi_pattern,
-
-    # The spelling in Unicode uses 'ee' vs 'ei' in ISO 15924 and common use
-    
     'Mtei': _meetei_mayek_pattern,
-    'Meitei Mayek': _meetei_mayek_pattern,
-
-    'Modi': _modi_pattern, # Both code and verbose name are same
-
+    'Modi': _modi_pattern,
     'Mroo': _mro_pattern,
-    'Mro': _mro_pattern,
-
     'Mult': _multani_pattern,
-    'Multani': _multani_pattern,
-
     'Nagm': _nag_mundari_pattern,
-    'Nag Mundari': _nag_mundari_pattern,
-
     'Nand': _nandinagari_pattern,
-    'Nandinagari': _nandinagari_pattern,
-
-    'Newa': _newa_pattern, # Both code and verbose name are same
-
+    'Newa': _newa_pattern,
     'Olck': _ol_chiki_pattern,
-    'Ol Chiki': _ol_chiki_pattern,
-
     'Onao': _ol_onal_pattern,
-    'Ol Onal': _ol_onal_pattern,
-
-    # Unicode uses both 'Oriya' and 'Odia' while ISO 15924 uses 'Odia' and 'Oriya' is more common
-    
     'Orya': _oriya_pattern,
-    'Odia': _oriya_pattern,
-
     'Saur': _saurashtra_pattern,
-    'Saurashtra': _saurashtra_pattern,
-
     'Shrd': _sharada_pattern,
-    'Sharada': _sharada_pattern,
-
     'Sidd': _siddham_pattern,
-    'Siddham': _siddham_pattern,
-
     'Sinh': _sinhala_pattern,
-    'Sinhala': _sinhala_pattern,
-
     'Sora': _sora_sompeng_pattern,
-    'Sora Sompeng': _sora_sompeng_pattern,
-
     'Sunu': _sunuwar_pattern,
-    'Sunuwar': _sunuwar_pattern,
-
     'Sylo': _syloti_nagri_pattern,
-    'Syloti Nagri': _syloti_nagri_pattern,
-
     'Takr': _takri_pattern,
-    'Takri': _takri_pattern,
-
     'Taml': _tamil_pattern,
-    'Tamil': _tamil_pattern,
-
     'Telu': _telugu_pattern,
-    'Telugu': _telugu_pattern,
-
     'Thaa': _thaana_pattern,
-    'Thaana': _thaana_pattern,
-
     'Tirh': _tirhuta_pattern,
-    'Tirhuta': _tirhuta_pattern,
-
-    'Toto': _toto_pattern, # Both code and verbose name are same
-
-    # ISO 15924 includes the hyphen while Unicode doesn't in 'Tulu Tigalari'
-    
+    'Toto': _toto_pattern,
     'Tutg': _tulu_tigalari_pattern,
-    'Tulu-Tigalari': _tulu_tigalari_pattern,
-
     'Wcho': _wancho_pattern,
-    'Wancho': _wancho_pattern,
-
-    # The spelling in Unicode uses 'Warang Citi' vs 'Varang Kshiti' in ISO 15924
-
     'Wara': _warang_citi_pattern,
-    'Varang Kshiti': _warang_citi_pattern,
-
-    # Indic Scripts Group ENDS above
-
-    'Thai': _thai_pattern, # Both code and verbose name are same
-
+    'Thai': _thai_pattern,
     'Ethi': _ethiopic_pattern,
-    'Ethiopic': _ethiopic_pattern,
-
     'Mymr': _myanmar_pattern,
-    'Myanmar': _myanmar_pattern,
-
     'Khmr': _khmer_pattern,
-    'Khmer': _khmer_pattern,
-
     'Grek': _greek_pattern,
-    'Greek': _greek_pattern,
-
     'Hebr': _hebrew_pattern,
-    'Hebrew': _hebrew_pattern,
-
-    # ISO 15924 code for Lao is 'Laoo' with the extra 'o'
-    
     'Laoo': _lao_pattern, 
-    'Lao': _lao_pattern,
-
     'Tibt': _tibetan_pattern,
-    'Tibetan': _tibetan_pattern,
-
     'Armn': _armenian_pattern,
-    'Armenian': _armenian_pattern,
-
     'Mong': _mongolian_pattern,
-    'Mongolian': _mongolian_pattern,
-
-    # Didn't add 'Geok' aka 'Georgian Khutsuri' separately as Georgian contains it
-    
     'Geor': _georgian_pattern,
-    'Georgian': _georgian_pattern,
-
     'Tfng': _tifinagh_pattern,
-    'Tifinagh': _tifinagh_pattern,
-
-    # This is the longest verbose name in ISO 15924
-
     'Cans': _unified_canadian_aboriginal_syllabics_pattern,
-    'Unified Canadian Aboriginal Syllabics': _unified_canadian_aboriginal_syllabics_pattern,
-
     'Java': _javanese_pattern,
-    'Javanese': _javanese_pattern,
-
     'Bali': _balinese_pattern,
-    'Balinese': _balinese_pattern,
-
     'Sund': _sundanese_pattern,
-    'Sundanese': _sundanese_pattern,
-
     'Yiii': _yi_pattern,
-    'Yi': _yi_pattern,
-
-    # Didn't add 3 sub variants for syriac separately yet
-    
     'Syrc': _syriac_pattern,
-    'Syriac': _syriac_pattern,
-
     'Vaii': _vai_pattern,
-    'Vai': _vai_pattern,
-
     'Cher': _cherokee_pattern,
-    'Cherokee': _cherokee_pattern,
-
-    # Unicode uses the name 'Tai Tham' vs 'Lanna' in ISO 15924
-
     'Lana': _tai_tham_pattern,
-    'Lanna': _tai_tham_pattern,
-
     'Tavt': _tai_viet_pattern,
-    'Tai Viet': _tai_viet_pattern,
-
-    # Unicode uses the name 'Nko' vs 'N'Ko' in ISO 15924. Used 'Right Single Quotation Mark' instead of apostrophe for avoiding syntax issues
-
     'Nkoo': _nko_pattern,
-    'N’Ko': _nko_pattern,
-
     'Adlm': _adlam_pattern,
-    'Adlam': _adlam_pattern,
-
     'Bamu': _bamum_pattern,
-    'Bamum': _bamum_pattern,
-
-    # Unicode uses the name 'Hanifi Rohingya' vs only 'Hanifi' in ISO 15924
-
     'Rohg': _hanifi_rohingya_pattern,
-    'Hanifi': _hanifi_rohingya_pattern,
-
-    'Cham': _cham_pattern, # Both the code and verbose name are same
-
+    'Cham': _cham_pattern,
     'Kali': _kayah_li_pattern,
-    'Kayah Li': _kayah_li_pattern,
-
     'Batk': _batak_pattern,
-    'Batak': _batak_pattern,
-
     'Bugi': _buginese_pattern,
-    'Buginese': _buginese_pattern,
-
-    # Filipino is written mostly in Latin script but also in 'Baybayin' known as 'Tagalog'
-
     'Tglg': _tagalog_pattern,
-    'Tagalog': _tagalog_pattern,
-
     'Buhd': _buhid_pattern,
-    'Buhid': _buhid_pattern,
-
     'Hano': _hanunoo_pattern,
-    'Hanunoo': _hanunoo_pattern,
-
     'Rjng': _rejang_pattern,
-    'Rejang': _rejang_pattern,
-
     'Tagb': _tagbanwa_pattern,
-    'Tagbanwa': _tagbanwa_pattern,
-
     'Bopo': _bopomofo_pattern,
-    'Bopomofo': _bopomofo_pattern,
-
     'Lisu': _lisu_pattern,
-    'Fraser': _lisu_pattern,
-
-    # Created by Samuel Pollard, used by Chinese Minorities
-
     'Plrd': _miao_pattern,
-    'Pollard Phonetic': _miao_pattern,
-
     'Osge': _osage_pattern,
-    'Osage': _osage_pattern,
-
     'Bass': _bassa_vah_pattern,
-    'Bassa Vah': _bassa_vah_pattern,
-
     'Copt': _coptic_pattern,
-    'Coptic': _coptic_pattern,
-
     'Brai': _braille_pattern,
-    'Braille': _braille_pattern,
-
     'Tale': _tai_le_pattern,
-    'Tai Le': _tai_le_pattern,
-
     'Talu': _new_tai_lue_pattern,
-    'New Tai Lue': _new_tai_lue_pattern,
-
     'Tnsa': _tangsa_pattern,
-    'Tangsa': _tangsa_pattern,
-
     'Maka': _makasar_pattern,
-    'Makasar': _makasar_pattern,
-
-    # Unicode uses the name 'Mende Kikakui' vs only 'Mende' in ISO 15924
-
-    'Mend': _mende_kikakui_pattern,
-    'Mende': _mende_kikakui_pattern
+    'Mend': _mende_kikakui_pattern
 
 })
 
+SCRIPT_CODE_TO_NAME: Mapping[str, str] = MappingProxyType({
+
+    'Latn': 'Latin',
+    'Hant': 'Traditional', # Chinese Scripts Group
+    'Hans': 'Simplified',
+    'Arab': 'Arabic',
+    'Deva': 'Devanagari',
+    'Cyrl': 'Cyrillic',
+    'Beng': 'Bangla',
+    'Jpan': 'Japanese', # Japanese Scripts Group
+    'Hrkt': 'Japanese syllabaries',
+    'Hira': 'Hiragana',
+    'Kana': 'Katakana',
+    'Kore': 'Korean', # Korean Scripts Group
+    'Hang': 'Hangul',
+    'Ahom': 'Ahom', # Indic Scripts Group STARTS here. Both code and verbose name are same
+    'Bhks': 'Bhaiksuki',
+    'Brah': 'Brahmi',
+    'Cakm': 'Chakma',
+    'Diak': 'Dives Akuru',
+    'Dogr': 'Dogra',
+    'Gran': 'Grantha',
+    'Gujr': 'Gujarati',
+    'Gong': 'Gunjala Gondi',
+    'Guru': 'Gurmukhi',
+    'Gukh': 'Gurung Khema',
+    'Kthi': 'Kaithi',
+    'Knda': 'Kannada',
+    'Khar': 'Kharoshthi',
+    'Khoj': 'Khojki',
+    'Krai': 'Kirat Rai',
+    'Sind': 'Khudawadi',
+    'Lepc': 'Lepcha',
+    'Limb': 'Limbu',
+    'Mahj': 'Mahajani',
+    'Mlym': 'Malayalam',
+    'Gonm': 'Masaram Gondi',
+    'Mtei': 'Meitei Mayek', # The spelling in Unicode uses 'ee' vs 'ei' in ISO 15924 and common use
+    'Modi': 'Modi', # Both code and verbose name are same
+    'Mroo': 'Mro',
+    'Mult': 'Multani',
+    'Nagm': 'Nag Mundari',
+    'Nand': 'Nandinagari',
+    'Newa': 'Newa', # Both code and verbose name are same
+    'Olck': 'Ol Chiki',
+    'Onao': 'Ol Onal',
+    'Orya': 'Odia', # Unicode uses both 'Oriya' and 'Odia' while ISO 15924 uses 'Odia' and 'Oriya' is more common
+    'Saur': 'Saurashtra',
+    'Shrd': 'Sharada',
+    'Sidd': 'Siddham',
+    'Sinh': 'Sinhala',
+    'Sora': 'Sora Sompeng',
+    'Sunu': 'Sunuwar',
+    'Sylo': 'Syloti Nagri',
+    'Takr': 'Takri',
+    'Taml': 'Tamil',
+    'Telu': 'Telugu',
+    'Thaa': 'Thaana',
+    'Tirh': 'Tirhuta',
+    'Toto': 'Toto', # Both code and verbose name are same
+    'Tutg': 'Tulu-Tigalari', # ISO 15924 includes the hyphen while Unicode doesn't in 'Tulu Tigalari'
+    'Wcho': 'Wancho',
+    'Wara': 'Varang Kshiti', # Indic Scripts Group ENDS here. The spelling in Unicode uses 'Warang Citi' vs 'Varang Kshiti' in ISO 15924
+    'Thai': 'Thai', # Both code and verbose name are same
+    'Ethi': 'Ethiopic',
+    'Mymr': 'Myanmar',
+    'Khmr': 'Khmer',
+    'Grek': 'Greek',
+    'Hebr': 'Hebrew',
+    'Laoo': 'Lao', # ISO 15924 code for Lao is 'Laoo' with the extra 'o'
+    'Tibt': 'Tibetan',
+    'Armn': 'Armenian',
+    'Mong': 'Mongolian',
+    'Geor': 'Georgian', # Didn't add 'Geok' aka 'Georgian Khutsuri' separately as Georgian contains it
+    'Tfng': 'Tifinagh',
+    'Cans': 'Unified Canadian Aboriginal Syllabics', # This is the longest verbose name in ISO 15924
+    'Java': 'Javanese',
+    'Bali': 'Balinese',
+    'Sund': 'Sundanese',
+    'Yiii': 'Yi',
+    'Syrc': 'Syriac', # Didn't add 3 sub variants due to lack of separated unicode charts for them
+    'Vaii': 'Vai',
+    'Cher': 'Cherokee',
+    'Lana': 'Lanna', # Unicode uses the name 'Tai Tham' vs 'Lanna' in ISO 15924
+    'Tavt': 'Tai Viet',
+    'Nkoo': 'N’Ko', # Unicode uses the name 'Nko' vs 'N'Ko' in ISO 15924. Used 'Right Single Quotation Mark' instead of apostrophe for avoiding syntax issues
+    'Adlm': 'Adlam',
+    'Bamu': 'Bamum',
+    'Rohg': 'Hanifi', # Unicode uses the name 'Hanifi Rohingya' vs only 'Hanifi' in ISO 15924
+    'Cham': 'Cham', # Both the code and verbose name are same
+    'Kali': 'Kayah Li',
+    'Batk': 'Batak',
+    'Bugi': 'Buginese',
+    'Tglg': 'Tagalog', # Filipino is written mostly in Latin script but also in 'Baybayin' known as 'Tagalog'
+    'Buhd': 'Buhid',
+    'Hano': 'Hanunoo',
+    'Rjng': 'Rejang',
+    'Tagb': 'Tagbanwa',
+    'Bopo': 'Bopomofo',
+    'Lisu': 'Fraser',
+    'Plrd': 'Pollard Phonetic', # Created by Samuel Pollard, used by Chinese Minorities
+    'Osge': 'Osage',
+    'Bass': 'Bassa Vah',
+    'Copt': 'Coptic',
+    'Brai': 'Braille',
+    'Tale': 'Tai Le',
+    'Talu': 'New Tai Lue',
+    'Tnsa': 'Tangsa',
+    'Maka': 'Makasar',
+    'Mend': 'Mende' # Unicode uses the name 'Mende Kikakui' vs only 'Mende' in ISO 15924
+
+}) 
