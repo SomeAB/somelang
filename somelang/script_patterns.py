@@ -97,8 +97,104 @@ _tulu_tigalari_pattern = re.compile(r'[\U00011380-\U000113FF]')
 _wancho_pattern = re.compile(r'[\U0001E2C0-\U0001E2FF]')
 _warang_citi_pattern = re.compile(r'[\U000118A0-\U000118FF]')
 
+_thai_pattern = re.compile(r'[\u0E00-\u0E7F]')
+
+_ethiopic_pattern = re.compile(r'[\u1200-\u137F\u1380-\u139F\u2D80-\u2DDF\uAB00-\uAB2F\U0001E7E0-\U0001E7FF]')
+
+_myanmar_pattern = re.compile(r'[\u1000-\u109F\uAA60-\uAA7F\uA9E0-\uA9FF\U000116D0-\U000116FF]')
+
+_khmer_pattern = re.compile(r'[\u1780-\u17FF\u19E0-\u19FF]')
+
+_greek_pattern = re.compile(r'[\u0370-\u03FF\u1F00-\u1FFF\U00010140-\U0001018F]')
+
+_hebrew_pattern = re.compile(r'[\u0590-\u05FF\uFB00-\uFB4F]')
+
+_lao_pattern = re.compile(r'[\u0E80-\u0EFF]')
+
+_tibetan_pattern = re.compile(r'[\u0F00-\u0FFF]')
+
+_armenian_pattern = re.compile(r'[\u0530-\u058F\uFB00-\uFB4F]')
+
+_mongolian_pattern = re.compile(r'[\u1800-\u18AF\U00011660-\U0001167F]')
+
+_georgian_pattern = re.compile(r'[\u10A0-\u10FF\u1C90-\u1CBF\u2D00-\u2D2F]')
+
+_tifinagh_pattern = re.compile(r'[\u2D30-\u2D7F]')
+
+_unified_canadian_aboriginal_syllabics_pattern = re.compile(r'[\u1400-\u167F\u18B0-\u18FF\U00011AB0-\U00011ABF]')
+
+_javanese_pattern = re.compile(r'[\uA980-\uA9DF]')
+
+_balinese_pattern = re.compile(r'[\u1B00-\u1B7F]')
+
+_sundanese_pattern = re.compile(r'[\u1B80-\u1BBF\u1CC0-\u1CCF]')
+
+_yi_pattern = re.compile(r'[\uA000-\uA48F\uA490-\uA4CF]')
+
+_syriac_pattern = re.compile(r'[\u0700-\u074F\u0860-\u086F]')
+
+_vai_pattern = re.compile(r'[\uA500-\uA63F]')
+
+_cherokee_pattern = re.compile(r'[\u13A0-\u13FF\uAB70-\uABBF]')
+
+_tai_tham_pattern = re.compile(r'[\u1A20-\u1AAF]')
+
+_tai_viet_pattern = re.compile(r'[\uAA80-\uAADF]')
+
+_nko_pattern = re.compile(r'[\u07C0-\u07FF]')
+
+_adlam_pattern = re.compile(r'[\U0001E900-\U0001E95F]')
+
+_bamum_pattern = re.compile(r'[\uA6A0-\uA6FF\U00016800-\U00016A3F]')
+
+_hanifi_rohingya_pattern = re.compile(r'[\U00010D00-\U00010D3F]')
+
+_cham_pattern = re.compile(r'[\uAA00-\uAA5F]')
+
+_kayah_li_pattern = re.compile(r'[\uA900-\uA92F]')
+
+_batak_pattern = re.compile(r'[\u1BC0-\u1BFF]')
+
+_buginese_pattern = re.compile(r'[\u1A00-\u1A1F]')
+
+_tagalog_pattern = re.compile(r'[\u1700-\u171F]')
+
+_buhid_pattern = re.compile(r'[\u1740-\u175F]')
+
+_hanunoo_pattern = re.compile(r'[\u1720-\u173F]')
+
+_rejang_pattern = re.compile(r'[\uA930-\uA95F]')
+
+_tagbanwa_pattern = re.compile(r'[\u1760-\u177F]')
+
+_bopomofo_pattern = re.compile(r'[\u3100-\u312F]')
+
+_lisu_pattern = re.compile(r'[\uA4D0-\uA4FF\U00011FB0-\U00011FBF]')
+
+_miao_pattern = re.compile(r'[\U00016F00-\U00016F9F]')
+
+_osage_pattern = re.compile(r'[\U000104B0-\U000104FF]')
+
+_bassa_vah_pattern = re.compile(r'[\U00016AD0-\U00016AFF]')
+
+_coptic_pattern = re.compile(r'[\u2C80-\u2CFF\u0370-\u03FF\U000102E0-\U000102FF]')
+
+_braille_pattern = re.compile(r'[\u2800-\u28FF]')
+
+_tai_le_pattern = re.compile(r'[\u1950-\u197F]')
+
+_new_tai_lue_pattern = re.compile(r'[\u1980-\u19DF]')
+
+_tangsa_pattern = re.compile(r'[\U00016A70-\U00016ACF]')
+
+_makasar_pattern = re.compile(r'[\U00011EE0-\U00011EFF]')
+
+_mende_kikakui_pattern = re.compile(r'[\U0001E800-\U0001E8DF]')
+
+
+
 # Next we map script names (both code & verbose name per ISO 15924) to the regex patterns
-# In order of most widely used script first
+# In order of most widely used script first (roughly)
 # We use Mapping from typing module for type hinting
 # We use MappingProxyType for mutability protection
 ALL_SCRIPT_PATTERNS: Mapping[str, re.Pattern] = MappingProxyType({
@@ -215,7 +311,9 @@ ALL_SCRIPT_PATTERNS: Mapping[str, re.Pattern] = MappingProxyType({
     'Gonm': _masaram_gondi_pattern,
     'Masaram Gondi': _masaram_gondi_pattern,
 
-    'Mtei': _meetei_mayek_pattern, # The spelling in Unicode uses 'ee' vs 'ei' in ISO 15924 and common use
+    # The spelling in Unicode uses 'ee' vs 'ei' in ISO 15924 and common use
+    
+    'Mtei': _meetei_mayek_pattern,
     'Meitei Mayek': _meetei_mayek_pattern,
 
     'Modi': _modi_pattern, # Both code and verbose name are same
@@ -240,8 +338,10 @@ ALL_SCRIPT_PATTERNS: Mapping[str, re.Pattern] = MappingProxyType({
     'Onao': _ol_onal_pattern,
     'Ol Onal': _ol_onal_pattern,
 
+    # Unicode uses both 'Oriya' and 'Odia' while ISO 15924 uses 'Odia' and 'Oriya' is more common
+    
     'Orya': _oriya_pattern,
-    'Odia': _oriya_pattern, # Unicode uses both 'Oriya' and 'Odia' while ISO 15924 uses 'Odia' and 'Oriya' is more common
+    'Odia': _oriya_pattern,
 
     'Saur': _saurashtra_pattern,
     'Saurashtra': _saurashtra_pattern,
@@ -281,16 +381,179 @@ ALL_SCRIPT_PATTERNS: Mapping[str, re.Pattern] = MappingProxyType({
 
     'Toto': _toto_pattern, # Both code and verbose name are same
 
+    # ISO 15924 includes the hyphen while Unicode doesn't in 'Tulu Tigalari'
+    
     'Tutg': _tulu_tigalari_pattern,
-    'Tulu-Tigalari': _tulu_tigalari_pattern, # ISO 15924 includes the hyphen while Unicode doesn't
+    'Tulu-Tigalari': _tulu_tigalari_pattern,
 
     'Wcho': _wancho_pattern,
     'Wancho': _wancho_pattern,
 
+    # The spelling in Unicode uses 'Warang Citi' vs 'Varang Kshiti' in ISO 15924
+
     'Wara': _warang_citi_pattern,
-    'Varang Kshiti': _warang_citi_pattern, # The spelling in Unicode uses 'Warang Citi' vs 'Varang Kshiti' in ISO 15924
+    'Varang Kshiti': _warang_citi_pattern,
 
+    # Indic Scripts Group ENDS above
 
+    'Thai': _thai_pattern, # Both code and verbose name are same
+
+    'Ethi': _ethiopic_pattern,
+    'Ethiopic': _ethiopic_pattern,
+
+    'Mymr': _myanmar_pattern,
+    'Myanmar': _myanmar_pattern,
+
+    'Khmr': _khmer_pattern,
+    'Khmer': _khmer_pattern,
+
+    'Grek': _greek_pattern,
+    'Greek': _greek_pattern,
+
+    'Hebr': _hebrew_pattern,
+    'Hebrew': _hebrew_pattern,
+
+    # ISO 15924 code for Lao is 'Laoo' with the extra 'o'
+    
+    'Laoo': _lao_pattern, 
+    'Lao': _lao_pattern,
+
+    'Tibt': _tibetan_pattern,
+    'Tibetan': _tibetan_pattern,
+
+    'Armn': _armenian_pattern,
+    'Armenian': _armenian_pattern,
+
+    'Mong': _mongolian_pattern,
+    'Mongolian': _mongolian_pattern,
+
+    # Didn't add 'Geok' aka 'Georgian Khutsuri' separately as Georgian contains it
+    
+    'Geor': _georgian_pattern,
+    'Georgian': _georgian_pattern,
+
+    'Tfng': _tifinagh_pattern,
+    'Tifinagh': _tifinagh_pattern,
+
+    # This is the longest verbose name in ISO 15924
+
+    'Cans': _unified_canadian_aboriginal_syllabics_pattern,
+    'Unified Canadian Aboriginal Syllabics': _unified_canadian_aboriginal_syllabics_pattern,
+
+    'Java': _javanese_pattern,
+    'Javanese': _javanese_pattern,
+
+    'Bali': _balinese_pattern,
+    'Balinese': _balinese_pattern,
+
+    'Sund': _sundanese_pattern,
+    'Sundanese': _sundanese_pattern,
+
+    'Yiii': _yi_pattern,
+    'Yi': _yi_pattern,
+
+    # Didn't add 3 sub variants for syriac separately yet
+    
+    'Syrc': _syriac_pattern,
+    'Syriac': _syriac_pattern,
+
+    'Vaii': _vai_pattern,
+    'Vai': _vai_pattern,
+
+    'Cher': _cherokee_pattern,
+    'Cherokee': _cherokee_pattern,
+
+    # Unicode uses the name 'Tai Tham' vs 'Lanna' in ISO 15924
+
+    'Lana': _tai_tham_pattern,
+    'Lanna': _tai_tham_pattern,
+
+    'Tavt': _tai_viet_pattern,
+    'Tai Viet': _tai_viet_pattern,
+
+    # Unicode uses the name 'Nko' vs 'N'Ko' in ISO 15924. Used 'Right Single Quotation Mark' instead of apostrophe for avoiding syntax issues
+
+    'Nkoo': _nko_pattern,
+    'N’Ko': _nko_pattern,
+
+    'Adlm': _adlam_pattern,
+    'Adlam': _adlam_pattern,
+
+    'Bamu': _bamum_pattern,
+    'Bamum': _bamum_pattern,
+
+    # Unicode uses the name 'Hanifi Rohingya' vs only 'Hanifi' in ISO 15924
+
+    'Rohg': _hanifi_rohingya_pattern,
+    'Hanifi': _hanifi_rohingya_pattern,
+
+    'Cham': _cham_pattern, # Both the code and verbose name are same
+
+    'Kali': _kayah_li_pattern,
+    'Kayah Li': _kayah_li_pattern,
+
+    'Batk': _batak_pattern,
+    'Batak': _batak_pattern,
+
+    'Bugi': _buginese_pattern,
+    'Buginese': _buginese_pattern,
+
+    # Filipino is written mostly in Latin script but also in 'Baybayin' known as 'Tagalog'
+
+    'Tglg': _tagalog_pattern,
+    'Tagalog': _tagalog_pattern,
+
+    'Buhd': _buhid_pattern,
+    'Buhid': _buhid_pattern,
+
+    'Hano': _hanunoo_pattern,
+    'Hanunoo': _hanunoo_pattern,
+
+    'Rjng': _rejang_pattern,
+    'Rejang': _rejang_pattern,
+
+    'Tagb': _tagbanwa_pattern,
+    'Tagbanwa': _tagbanwa_pattern,
+
+    'Bopo': _bopomofo_pattern,
+    'Bopomofo': _bopomofo_pattern,
+
+    'Lisu': _lisu_pattern,
+    'Fraser': _lisu_pattern,
+
+    # Created by Samuel Pollard, used by Chinese Minorities
+
+    'Plrd': _miao_pattern,
+    'Pollard Phonetic': _miao_pattern,
+
+    'Osge': _osage_pattern,
+    'Osage': _osage_pattern,
+
+    'Bass': _bassa_vah_pattern,
+    'Bassa Vah': _bassa_vah_pattern,
+
+    'Copt': _coptic_pattern,
+    'Coptic': _coptic_pattern,
+
+    'Brai': _braille_pattern,
+    'Braille': _braille_pattern,
+
+    'Tale': _tai_le_pattern,
+    'Tai Le': _tai_le_pattern,
+
+    'Talu': _new_tai_lue_pattern,
+    'New Tai Lue': _new_tai_lue_pattern,
+
+    'Tnsa': _tangsa_pattern,
+    'Tangsa': _tangsa_pattern,
+
+    'Maka': _makasar_pattern,
+    'Makasar': _makasar_pattern,
+
+    # Unicode uses the name 'Mende Kikakui' vs only 'Mende' in ISO 15924
+
+    'Mend': _mende_kikakui_pattern,
+    'Mende': _mende_kikakui_pattern
 
 })
 
