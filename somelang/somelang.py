@@ -9,15 +9,11 @@ This is a natural language detection library
 import re # For regular expressions
 from typing import Dict, List, Tuple, Optional # For type hinting
 
-# Import default script patterns
-from .default_scripts import UNICODE_SCRIPT_PATTERNS
+# Import NEW script patterns & code-to-name mapping
+from .script_patterns import ALL_SCRIPT_PATTERNS, SCRIPT_CODE_TO_NAME
 
-# Import default trigrams data
-from .default_trigrams import LANGUAGE_TRIGRAMS
-
-# Import custom trigrams data
-from .short_trigrams import LANGUAGE_TRIGRAMS_SHORT
-from .medium_trigrams import LANGUAGE_TRIGRAMS_MEDIUM
+# Import NEW trigrams data
+from .trigrams_data_0003B import LANGUAGE_TRIGRAMS
 
 # Import default whitelist
 # USE THIS FOR BETTER ACCURACY ON SHORTER TEXT ( text < 100 characters )
@@ -240,7 +236,7 @@ def detect_dominant_script(text: str, script_patterns: Dict[str, re.Pattern] = N
 
     # Fallback to use the patterns defined above, if no other custom pattern is passed
     if script_patterns is None:
-        script_patterns = UNICODE_SCRIPT_PATTERNS
+        script_patterns = ALL_SCRIPT_PATTERNS
     
     # Handle empty/None text case - return no detection
     if not text or len(text.strip()) == 0:
@@ -465,28 +461,24 @@ def all_detected_languages(text: str, options = None) -> List[List]:
     # Truncate text to maximum length
     text = text[:MAX_LENGTH]
 
-    # Check text length to use correct data model
-    if len(text) < SHORT_TEXT_LENGTH:
-        TRIGRAMS_DATA = LANGUAGE_TRIGRAMS_SHORT
-    elif len(text) < MEDIUM_TEXT_LENGTH and len(text) >= SHORT_TEXT_LENGTH:
-        TRIGRAMS_DATA = LANGUAGE_TRIGRAMS_MEDIUM
-    else:
-        TRIGRAMS_DATA = LANGUAGE_TRIGRAMS
+    # Placeholder comment (will be changed later)
+    TRIGRAMS_DATA = LANGUAGE_TRIGRAMS
 
     # Detect dominant script
-    script, confidence = detect_dominant_script(text, UNICODE_SCRIPT_PATTERNS)
+    script, confidence = detect_dominant_script(text, ALL_SCRIPT_PATTERNS)
 
     # If no known script detected, return undefined
     if not script:
         return handle_undefined_result()
 
     # Check if script is in our top-level of our LANGUAGE_TRIGRAMS dictionary, which is scripts actually
+    # Also Returns 'script name' if no trigrams data is found for that script in trigrams file, i.e., it says the script is the language itself
     if script not in TRIGRAMS_DATA:
         if confidence == 0 or not is_language_allowed(script, whitelist, blacklist):
             return handle_undefined_result()
         return handle_single_result(script)
 
-    # Generate trigrams from text
+    # Generate trigrams from input text
     input_trigrams = sort_trigrams_by_frequency(text)
 
     # Get list of languages in the given script from all languages available to us

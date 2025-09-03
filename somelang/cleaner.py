@@ -3,26 +3,17 @@ SomeLang Cleaner - by SomeAB
 
 This module handles data cleaning and standardization for training data.
 Parses combined language codes (e.g., 'eng_Latn') into separate language and script columns.
+Keeps script codes as 4-character ISO 15924 codes.
 """
 
 import pandas as pd
 import argparse
 import os
 import glob
-import json
 from pathlib import Path
 from typing import List, Tuple
 
-# Load script codes mapping at module level
-SCRIPT_CODES = {}
-try:
-    script_codes_path = os.path.join(os.path.dirname(__file__), 'script_codes.json')
-    with open(script_codes_path, 'r', encoding='utf-8') as f:
-        SCRIPT_CODES = json.load(f)
-    print(f"Loaded {len(SCRIPT_CODES)} script codes for language processing")
-except Exception as e:
-    print(f"Warning: Could not load script codes: {e}")
-    SCRIPT_CODES = {}
+# Note: No longer using script_codes.json as we keep script codes as-is
 
 
 def parse_language_code(combined_code: str) -> Tuple[str, str]:
@@ -33,11 +24,11 @@ def parse_language_code(combined_code: str) -> Tuple[str, str]:
         combined_code: Language code like 'eng_Latn' or 'eng'
         
     Returns:
-        Tuple of (language_code, script_name)
+        Tuple of (language_code, script_code)
         
     Examples:
-        'eng_Latn' -> ('eng', 'Latin')
-        'rus_Cyrl' -> ('rus', 'Cyrillic') 
+        'eng_Latn' -> ('eng', 'Latn')
+        'rus_Cyrl' -> ('rus', 'Cyrl') 
         'eng' -> ('eng', 'Unknown')
     """
     if '_' in combined_code:
@@ -45,9 +36,8 @@ def parse_language_code(combined_code: str) -> Tuple[str, str]:
         language_code = parts[0]
         script_code = parts[1]
         
-        # Look up verbose script name
-        script_name = SCRIPT_CODES.get(script_code, script_code)
-        return language_code, script_name
+        # Keep script code as-is (4-character ISO 15924 code)
+        return language_code, script_code
     else:
         # No script code provided
         return combined_code, 'Unknown'
@@ -119,7 +109,7 @@ def clean_data(input_files: List[str], output_dir: str = 'training_data') -> str
                 
                 # Show unique script types found
                 unique_scripts = df['script'].unique()
-                print(f"  - Found {len(unique_scripts)} unique scripts: {list(unique_scripts)[:5]}{'...' if len(unique_scripts) > 5 else ''}")
+                print(f"  - Found {len(unique_scripts)} unique script codes: {list(unique_scripts)[:5]}{'...' if len(unique_scripts) > 5 else ''}")
             else:
                 print(f"  - No 'language' column found, keeping original structure")
             

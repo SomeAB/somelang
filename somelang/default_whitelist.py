@@ -37,10 +37,7 @@ DEFAULT_WHITELIST = [
     'eus', # Basque
     'cat', # Catalan
     'glg', # Galician
-    'ast', # Asturian
     'cos', # Corsican
-    'vec', # Venetian
-    'lij', # Ligurian
     'fry', # Frisian
     'ltz', # Luxembourgish
     'gle', # Irish
@@ -72,7 +69,6 @@ DEFAULT_WHITELIST = [
     'jav', # Javanese
     'sun', # Sundanese
     'mad', # Madurese
-    'min', # Minangkabau
     'bug', # Buginese
     'ban', # Balinese
     'ace', # Acehnese
@@ -80,7 +76,6 @@ DEFAULT_WHITELIST = [
     'tgl', # Tagalog
     'ceb', # Cebuano
     'hil', # Hiligaynon
-    'war', # Waray
     'pam', # Kapampangan (Pampanga)
     'ilo', # Ilocano
     'mya', # Burmese
@@ -93,7 +88,6 @@ DEFAULT_WHITELIST = [
     # Major African languages
     'som', # Somali
     'hau', # Hausa
-    'fuv', # Fula / Fulfulde
     'yor', # Yoruba
     'ibo', # Igbo
     'swh', # Swahili
@@ -107,14 +101,10 @@ DEFAULT_WHITELIST = [
     'nbl', # Ndebele
     'run', # Kirundi (Rundi)
     'kin', # Kinyarwanda
-    'lug', # Luganda
-    'lin', # Lingala
-    'wol', # Wolof
     'men', # Mende
     'tem', # Temne
     'kri', # Krio
     'pcm', # Nigerian Pidgin
-    'twi', # Twi
     'ewe', # Ewe
     'gaa', # Ga
     'mos', # Mossi (Moor)
@@ -122,7 +112,6 @@ DEFAULT_WHITELIST = [
     'nya', # Nyanja (Chichewa)
     'bem', # Bemba
     'loz', # Lozi
-    'kmb', # Kimbundu
     'umb', # Umbundu
     'ndo', # Ndonga
     'sag', # Sango
@@ -141,7 +130,6 @@ DEFAULT_WHITELIST = [
     'qug', # Quichua (variant)
     'quy', # Quechua (variant)
     'quz', # Quechua (Cusco)
-    'hat', # Haitian Creole
     'nav', # Navajo
     'cak', # Kaqchikel
     'mam', # Mam
@@ -149,15 +137,10 @@ DEFAULT_WHITELIST = [
     'tzm', # Central Atlas Tamazight
     'arn', # Mapudungun (Mapuche)
     'auc', # Awajun / Waorani (approx.)
-    'gyr', # (unknown / regional) - verify
     'cab', # Cabecar (Cabecar)
     'cof', # Cofan (Cofan / Cofan)
-    'pbb', # (unknown) - verify
-    'gug', # (unknown / Guarani variant) - verify
-    'hus', # (unknown) - verify
     'maz', # Mazatec
-    'ote', # (unknown) - verify
-    'pap', # Papiamento
+    'ote', # Mezquital Otomi
     'guc', # Wayuu
 
     # Pacific and other major languages
@@ -172,7 +155,6 @@ DEFAULT_WHITELIST = [
     'bis', # Bislama
     'niu', # Niuean
     'tah', # Tahitian
-    'mri', # Maori
 
     # Additional important/classical languages
     'lat', # Latin
@@ -199,7 +181,6 @@ DEFAULT_WHITELIST = [
     'abk', # Abkhaz
     'fur', # Friulian
     'gsw', # Swiss German (Alemannic)
-    'lij', # Ligurian
     'wln', # Walloon
     'rup', # Aromanian
 ]

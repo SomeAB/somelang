@@ -6,7 +6,7 @@ Unicode version: 16.0
 # Core python imports
 import re # For regular patterns
 from types import MappingProxyType # For dictionary mutability protection
-from typing import Dict, Mapping # For type hinting
+from typing import Dict # For type hinting
 
 # First we map script names (both code & verbose name per ISO 15924) to the regex patterns
 # Each regex matches characters specific to a script
@@ -16,7 +16,7 @@ from typing import Dict, Mapping # For type hinting
 # We use Mapping from typing module for type hinting
 # We use MappingProxyType for mutability protection
 
-ALL_SCRIPT_PATTERNS: Mapping[str, re.Pattern] = MappingProxyType({
+ALL_SCRIPT_PATTERNS: Dict[str, re.Pattern] = MappingProxyType({
     
     'Latn': re.compile(r'[A-Za-z\u00AA\u00BA\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF\u0100-\u017F\u0180-\u024F\u2C60-\u2C7F\uA720-\uA7FF\uAB30-\uAB6F\u1E00-\u1EFF\uFB00-\uFB06\u0250-\u02AF\u1D00-\u1D7F\u1D80-\u1DBF]'),
 
@@ -248,7 +248,7 @@ ALL_SCRIPT_PATTERNS: Mapping[str, re.Pattern] = MappingProxyType({
 
 # Next we map script code to their verbose name (as per ISO 15924)
 # Also see the individual comments for extra but useful notes
-SCRIPT_CODE_TO_NAME: Mapping[str, str] = MappingProxyType({
+SCRIPT_CODE_TO_NAME: Dict[str, str] = MappingProxyType({
 
     'Latn': 'Latin',
     'Hant': 'Traditional', # Chinese Scripts Group
