@@ -13,7 +13,7 @@ from typing import Dict, List, Tuple, Optional # For type hinting
 from .script_patterns import ALL_SCRIPT_PATTERNS, SCRIPT_CODE_TO_NAME
 
 # Import NEW trigrams data
-from .trigrams_data_0003B import LANGUAGE_TRIGRAMS
+from .trigrams_data_0003D import LANGUAGE_TRIGRAMS
 
 # Import default whitelist
 # USE THIS FOR BETTER ACCURACY ON SHORTER TEXT ( text < 100 characters )

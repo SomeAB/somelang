@@ -11,6 +11,8 @@ import glob # For file pattern matching
 import os # For file existence checks
 import pandas as pd # For reading parquet files easily & data manipulation
 from pathlib import Path # For cross platform paths handling
+import pyarrow as pa # For efficient data processing
+import pyarrow.compute as pc # For efficient computations
 import pyarrow.parquet as pq # For manipulating parquet files
 from typing import Dict, List, Tuple, Optional # For type hinting
 
@@ -37,14 +39,15 @@ def split_training_data(file_path: Path = DEFAULT_INPUT_DIR, max_size_mb: int = 
     total_size_bytes = file_path.stat().st_size
     batch_size_bytes = max_size_mb * (1024**2)  # Convert MB to bytes
 
-    # 2. Using pandas, read a small sample (1000 rows)
-    sample_df_01 = pd.read_parquet(file_path, engine='pyarrow').head(1000)
-
+    # 2. Using pyarrow, read a small sample (1000 rows) to estimate row size
+    training_file_for_sampling = pq.ParquetFile(file_path)
+    sample_batch = next(training_file_for_sampling.iter_batches(batch_size=1000))
+    
     # 3. Measure the memory usage of 1000 rows that are already loaded, then divide it by no of rows, to get estimated memory usage per row
-    estimated_row_size = sample_df_01.memory_usage(deep=True).sum() / len(sample_df_01)
+    estimated_row_size = sample_batch.get_total_buffer_size() / len(sample_batch)
 
     # 4. Calculate approximate no of rows per batch 
-    rows_per_batch = int(batch_size_bytes / estimated_row_size)
+    rows_per_batch = int(batch_size_bytes / estimated_row_size) if estimated_row_size > 0 else 100000
 
     # 5. Print a message indicating how many rows will be processed in each batch
     print(f"Processing in batches of ~{rows_per_batch:,} rows")
@@ -57,18 +60,17 @@ def split_training_data(file_path: Path = DEFAULT_INPUT_DIR, max_size_mb: int = 
     # 7. Iterate through the training file, splitting it into 'rows_per_batch' sized batches
     for single_batch in training_file.iter_batches(batch_size=rows_per_batch):
         
-        # Convert the single batch to pandas dataframe
-        batch_df = single_batch.to_pandas()
-
-        # Append each dataframe to the list 'batches'
-        batches.append(batch_df)
+        # Append each arrow table to the list 'batches'
+        batches.append(single_batch)
 
         # Print the progress, for easy debugging
-        print(f"Loaded batch: {len(batch_df):,} rows")
+        print(f"Loaded batch: {len(single_batch):,} rows")
     
-    # 8. Combine all batches
+    # 8. Combine all batches using PyArrow backend
     print("Combining batches...")
-    return pd.concat(batches, ignore_index=True) 
+    combined_table = pa.concat_tables(batches)
+    # Ensure PyArrow backend is maintained after concat
+    return combined_table.to_pandas(types_mapper=pd.ArrowDtype) 
 
 def load_training_data(file_path: Path = DEFAULT_INPUT_DIR, min_text_len: Optional[int] = MIN_TEXT_LENGTH, max_text_len: Optional[int] = MAX_TEXT_LENGTH) -> Dict[Tuple[str, str], pd.DataFrame]:
     """Handle the incoming training data file"""
@@ -106,78 +108,147 @@ def load_training_data(file_path: Path = DEFAULT_INPUT_DIR, min_text_len: Option
         df_main = split_training_data(actual_file_path, MAX_TRAINING_FILE_SIZE)
     else:
         print("File size is within limits. Loading the entire file into memory...")
-        df_main = pd.read_parquet(actual_file_path)
+        df_main = pd.read_parquet(actual_file_path, engine='pyarrow', dtype_backend='pyarrow')
 
     # 5. Check if the dataframe is empty
     if df_main.empty:
         raise ValueError("Training data file is empty")
     
-    # 6. Print information about rows & columns
-    print(f"Loaded Dataframe Successfully with {df_main.shape[0]:,} rows and {df_main.shape[1]} columns")
+    # 6. Print information about rows & columns using PyArrow for efficiency
+    table_for_info = pa.Table.from_pandas(df_main)
+    print(f"Loaded Dataframe Successfully with {len(table_for_info):,} rows and {len(table_for_info.column_names)} columns")
 
-    # 7. Validate column structure
+    # 7. Validate column structure using PyArrow for efficiency
+    # Get column names using PyArrow table
+    table_for_columns = pa.Table.from_pandas(df_main)
+    available_columns = table_for_columns.column_names
+    
     # Find which columns are missing
-    missing_columns = [col for col in REQUIRED_COLUMNS if col not in df_main.columns]
+    missing_columns = [col for col in REQUIRED_COLUMNS if col not in available_columns]
 
     # Raise an error if any required columns are missing and also show found columns
     if missing_columns:
-        raise ValueError(f"Missing required columns: {missing_columns}. Found columns: {list(df_main.columns)}")
+        raise ValueError(f"Missing required columns: {missing_columns}. Found columns: {available_columns}")
     
-    # 8. Remove rows with null, empty text or less then 3 characters (enough for one trigram)
+    # 8. Remove rows with null, empty text or less then 3 characters (using PyArrow for efficiency)
     text_column = REQUIRED_COLUMNS[0] # Using the first element of the list, which will be manually assured by devs to be input text (name agnostic)
-    initial_row_count = df_main.shape[0] # Use pandas method to get no of rows (faster)
-
-    # Get the length of the text data, after striping whitespace on both ends and converting null to NaN
-    text_data_length = df_main[text_column].str.strip().str.len()
-
-    # Use pandas 'between' method to remove entries that are outside the range
-    df_main = df_main[text_data_length.between(min_text_len, max_text_len, inclusive='both')]
+    
+    # Use PyArrow for efficient string length computation and filtering on large datasets
+    table = pa.Table.from_pandas(df_main)
+    initial_row_count = len(table) # Use PyArrow method to get no of rows
+    text_array = table[text_column]
+    
+    # Compute string lengths efficiently with PyArrow
+    stripped_text = pc.utf8_trim_whitespace(text_array)
+    text_lengths = pc.utf8_length(stripped_text)
+    
+    # Create boolean mask for filtering using PyArrow compute
+    valid_length_mask = pc.and_(
+        pc.greater_equal(text_lengths, pa.scalar(min_text_len)),
+        pc.less_equal(text_lengths, pa.scalar(max_text_len))
+    )
+    
+    # Filter the table using PyArrow compute, then convert to pandas
+    filtered_table = pc.filter(table, valid_length_mask)
+    df_main = filtered_table.to_pandas(types_mapper=pd.ArrowDtype)
 
     # Report the number of rows dropped
-    if df_main.shape[0] < initial_row_count:
-        dropped_count = initial_row_count - df_main.shape[0] # Get no of dropped rows by substracting current count from initial count
-        print(f"Removed {dropped_count:,} rows with invalid {text_column} (null, empty, or outside {min_text_len}-{max_text_len} char range). Remaining: {df_main.shape[0]:,} rows")
+    current_row_count = len(df_main)
+    if current_row_count < initial_row_count:
+        dropped_count = initial_row_count - current_row_count # Get no of dropped rows by substracting current count from initial count
+        print(f"Removed {dropped_count:,} rows with invalid {text_column} (null, empty, or outside {min_text_len}-{max_text_len} char range). Remaining: {current_row_count:,} rows")
 
     # 9. Ensure we still have data after filtering
     if df_main.empty:
         raise ValueError(f"No valid training data remaining after filtering for null, empty, too short and too long text")
 
-    # 10. Use a single 'groupby' operation to get both stats and separated dataframes
-    # First group by script and language (unique together)
-    grouped_data = df_main.groupby(['script', 'language'])
+    # 10. Skip groupby operations for very large datasets to avoid memory issues
+    # For datasets with 100M+ rows, we'll process differently
+    current_row_count = len(df_main)
+    if current_row_count > 100_000_000:
+        print(f"Large dataset detected ({current_row_count:,} rows). Using memory-efficient processing...")
+        
+        # Get unique combinations using PyArrow without creating separate DataFrames
+        table = pa.Table.from_pandas(df_main)
+        table_subset = table.select(['script', 'language'])  # Use PyArrow select instead of pandas column selection
+        script_lang_pairs = []
+        
+        # Use PyArrow to get unique combinations efficiently
+        unique_scripts = pc.unique(table_subset['script']).to_pylist()
+        unique_languages = pc.unique(table_subset['language']).to_pylist()
+        
+        # Since we likely have only one script-language combo for this dataset, find it efficiently
+        for script in unique_scripts:
+            for language in unique_languages:
+                script_mask = pc.equal(table_subset['script'], pa.scalar(script))
+                lang_mask = pc.equal(table_subset['language'], pa.scalar(language))
+                combined_mask = pc.and_(script_mask, lang_mask)
+                count = pc.sum(combined_mask).as_py()
+                if count > 0:
+                    script_lang_pairs.append(((script, language), count))
+                    print(f"  {script}-{language}: {count:,} rows")
+        
+        # For large datasets, return a single entry with the full dataset
+        # This avoids memory explosion from groupby operations
+        if len(script_lang_pairs) == 1:
+            (script, language), count = script_lang_pairs[0]
+            separated_df = {(script, language): df_main}
+        else:
+            raise ValueError(f"Large dataset has multiple script-language combinations. Not supported yet.")
+    else:
+        # Use PyArrow for grouping operations on smaller datasets
+        table = pa.Table.from_pandas(df_main)
+        
+        # Get unique combinations using PyArrow
+        unique_scripts = pc.unique(table['script']).to_pylist()
+        unique_languages = pc.unique(table['language']).to_pylist()
+        
+        separated_df = {}
+        script_lang_pairs = []
+        
+        # Create groups using PyArrow filtering
+        for script in unique_scripts:
+            for language in unique_languages:
+                script_mask = pc.equal(table['script'], pa.scalar(script))
+                lang_mask = pc.equal(table['language'], pa.scalar(language))
+                combined_mask = pc.and_(script_mask, lang_mask)
+                
+                # Filter and convert to pandas with PyArrow backend
+                filtered_table = pc.filter(table, combined_mask)
+                if len(filtered_table) > 0:
+                    group_df = filtered_table.to_pandas(types_mapper=pd.ArrowDtype)
+                    separated_df[(script, language)] = group_df
+                    script_lang_pairs.append(((script, language), len(filtered_table)))
+        
+        print(f"Found {len(separated_df)} unique script-language combinations:")
+        for (script, language), count in script_lang_pairs:
+            print(f"  {script}-{language}: {count:,} rows")
 
-    # Use grouped_data to get stats. Get count and average for the text column, then round it to 2 decimal places
-    combo_stats = grouped_data.agg({
-        text_column: ['count', lambda x: x.str.len().mean()]
-    }).round(2)
-
-    separated_df = {key: group for key, group in grouped_data}
-
-    # Rename columns in combo_stats for clarity
-    combo_stats.columns = ['count', 'avg_length']
-
-    # Sort further for nicer presentation
-    combo_stats = combo_stats.sort_values('count', ascending=False)
-
-    # Get total no of script-language combinations
-    total_combinations = len(combo_stats)
-    print(f"Found {total_combinations} unique script-language combinations:")
-
-    # Display breakdown by iterating through combo_stats (each row) using 'iterrows' method
-    for (script, lang), row in combo_stats.iterrows():
-        # Notice the two spaces, that is for indent in presentation
-        print(f"  {script}-{lang}: {row['count']:,} rows (avg length: {row['avg_length']:.2f} chars)")
-
-    # 11. Display text length statistics for the filtered dataset using describe method
-    text_stats = df_main[text_column].str.len().describe()
+    # 11. Display text length statistics for the filtered dataset using PyArrow for efficiency
+    # Convert to PyArrow table for efficient computation
+    table = pa.Table.from_pandas(df_main[[text_column]])
+    text_array = table[text_column]
+    
+    # Compute string lengths efficiently
+    lengths = pc.utf8_length(text_array)
+    
+    # Get basic stats without pandas describe() 
+    text_stats = {
+        'min': pc.min(lengths).as_py(),
+        'max': pc.max(lengths).as_py(), 
+        'mean': pc.mean(lengths).as_py(),
+        'median': pc.approximate_median(lengths).as_py()
+    }
+    
     print(f"\nText length statistics:")
     print(f"  Min: {text_stats['min']:.0f} chars")
     print(f"  Max: {text_stats['max']:.0f} chars") 
     print(f"  Mean: {text_stats['mean']:.2f} chars")
-    print(f"  Median: {text_stats['50%']:.2f} chars")
+    print(f"  Median: {text_stats['median']:.0f} chars")
     
     # 12. Return the cleaned and validated DataFrame
-    print(f"\nFinal dataset ready: {df_main.shape[0]:,} rows for trigram generation")
+    final_row_count = len(df_main)
+    print(f"\nFinal dataset ready: {final_row_count:,} rows for trigram generation")
     return separated_df
 
 def generate_trigrams(file_path: Path = DEFAULT_INPUT_DIR, min_text_len: Optional[int] = MIN_TEXT_LENGTH, max_text_len: Optional[int] = MAX_TEXT_LENGTH) -> Dict[Tuple[str, str], Dict[str, int]]:
@@ -195,9 +266,14 @@ def generate_trigrams(file_path: Path = DEFAULT_INPUT_DIR, min_text_len: Optiona
         # Create a dictionary for each group
         frequency_map_per_group = {} # This is the frequency map that contains all trigrams per group
 
+        # Convert the text column to a PyArrow array for efficient iteration
+        text_array = pa.Table.from_pandas(single_df[[REQUIRED_COLUMNS[0]]])[REQUIRED_COLUMNS[0]]
+
         # Loop over each text entry in the single_df
-        for text in single_df[REQUIRED_COLUMNS[0]]:
-            frequency_map_per_entry = generate_trigrams_frequency_map(text)
+        for text in text_array:
+            # PyArrow may return text as a PyScalar; convert to string
+            text_str = str(text)
+            frequency_map_per_entry = generate_trigrams_frequency_map(text_str)
 
             # Loop over each frequency map immediately
             for trigram, count in frequency_map_per_entry.items():

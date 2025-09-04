@@ -35,9 +35,10 @@ somelang.egg-info/
 scripts/
 
 # Ignore the training data folder
-raw_data/
 training_data/
 trigrams_data/
+raw_data/
+raw_data_01/
 
 # Ignore the dev files
 _dev_docs/

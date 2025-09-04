@@ -112,7 +112,6 @@ DEFAULT_WHITELIST = [
     'nya', # Nyanja (Chichewa)
     'bem', # Bemba
     'loz', # Lozi
-    'umb', # Umbundu
     'ndo', # Ndonga
     'sag', # Sango
     'suk', # Sukuma
@@ -179,7 +178,6 @@ DEFAULT_WHITELIST = [
     'kbd', # Kabardian (Kabardino-Circassian)
     'ady', # Adyghe
     'abk', # Abkhaz
-    'fur', # Friulian
     'gsw', # Swiss German (Alemannic)
     'wln', # Walloon
     'rup', # Aromanian

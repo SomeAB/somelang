@@ -22,9 +22,9 @@ ALL_SCRIPT_PATTERNS: Dict[str, re.Pattern] = MappingProxyType({
 
     # Chinese Script Group
     
-    'Hant': re.compile(r'[\u4E00-\u9FFF\u3400-\u4DBF\u2F00-\u2FDF\u2E80-\u2EFF\u31C0-\u31EF\U00020000-\U0002A6DF]'),
+    'Hant': re.compile(r'[\u4E00-\u9FFF\u3400-\u4DBF\u2F00-\u2FDF\u2E80-\u2EFF\u31C0-\u31EF\U00020000-\U0002A6DF\uFF00-\uFFEF]'),
 
-    'Hans': re.compile(r'[\u4E00-\u9FFF\u3400-\u4DBF\u2F00-\u2FDF\u2E80-\u2EFF\u31C0-\u31EF\U00020000-\U0002A6DF]'),
+    'Hans': re.compile(r'[\u4E00-\u9FFF\u3400-\u4DBF\u2F00-\u2FDF\u2E80-\u2EFF\u31C0-\u31EF\U00020000-\U0002A6DF\uFF00-\uFFEF]'),
 
     'Arab': re.compile(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\u0870-\u089F\uFB50-\uFDFF\uFE70-\uFEFF]'),
 

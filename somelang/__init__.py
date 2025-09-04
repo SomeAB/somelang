@@ -26,6 +26,20 @@ def detect(text, whitelist=None):
     """
     return best_detected_language(text, whitelist)
 
+def detect_all(text, whitelist=None):
+    """
+    Detect all probable languages for the given text with scores.
+    
+    Args:
+        text (str): Text to analyze
+        whitelist (list, optional): List of language codes to consider
+                                   Defaults to optimized DEFAULT_WHITELIST
+    
+    Returns:
+        list: List of (language_code, confidence_score) tuples sorted by confidence
+    """
+    return all_detected_languages(text, whitelist)
+
 def get_supported_languages():
     """
     Get list of all supported language codes.
