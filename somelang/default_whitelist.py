@@ -69,7 +69,6 @@ DEFAULT_WHITELIST = [
     'jav', # Javanese
     'sun', # Sundanese
     'mad', # Madurese
-    'bug', # Buginese
     'ban', # Balinese
     'ace', # Acehnese
     'vie', # Vietnamese
@@ -86,7 +85,6 @@ DEFAULT_WHITELIST = [
     'kor', # Korean
 
     # Major African languages
-    'som', # Somali
     'hau', # Hausa
     'yor', # Yoruba
     'ibo', # Igbo
@@ -95,7 +93,6 @@ DEFAULT_WHITELIST = [
     'xho', # Xhosa
     'afr', # Afrikaans
     'nso', # Northern Sotho (Sepedi)
-    'tsn', # Tswana
     'ven', # Venda
     'ssw', # Swazi (Swati)
     'nbl', # Ndebele
@@ -110,10 +107,8 @@ DEFAULT_WHITELIST = [
     'mos', # Mossi (Moor)
     'sna', # Shona
     'nya', # Nyanja (Chichewa)
-    'bem', # Bemba
     'loz', # Lozi
     'ndo', # Ndonga
-    'sag', # Sango
     'suk', # Sukuma
     'tiv', # Tiv
     'srr', # Serer
@@ -144,7 +139,6 @@ DEFAULT_WHITELIST = [
 
     # Pacific and other major languages
     'haw', # Hawaiian
-    'smo', # Samoan
     'fij', # Fijian
     'ton', # Tongan
     'rar', # Rarotongan (Cook Islands Maori)
