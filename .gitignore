@@ -43,5 +43,12 @@ raw_data_01/
 # Ignore the dev files
 _dev_docs/
 
+# Ignore coverage files
+.coverage
+.coverage.*
+.coveragerc
+htmlcov/
+.vscode/
+
 # Temporary Ignores
 eng_Latn_sample.parquet
