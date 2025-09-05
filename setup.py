@@ -7,13 +7,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
 # Minimal setup to reserve the name on PyPI
 setup(
     name="somelang",
-    version="0.0.2",
+    version="0.0.3",
     author="SomeAB",
-    author_email="ssabs@protonmail.com",  # TODO: Replace with your actual email
+    author_email="ssabs@protonmail.com",
     description="Language Detection Library",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/SomeAB/somelang",  # Replace with your actual repo
+    url="https://github.com/SomeAB/somelang",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 1 - Planning",

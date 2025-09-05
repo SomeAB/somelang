@@ -1,7 +1,7 @@
 # SomeLang - Advanced Language Detection Library
 # High-accuracy language detection with optimized language set
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 __author__ = "SomeAB"
 
 # Import main functionality from somelang module

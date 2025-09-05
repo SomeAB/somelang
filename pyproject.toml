@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "somelang"
+version = "0.0.3"
+authors = [
+    {name = "SomeAB", email = "ssabs@protonmail.com"},
+]
+description = "Language Detection Library"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+    "Topic :: Text Processing :: Linguistic",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = ["language detection", "nlp", "text analysis", "linguistics"]
+
+[project.urls]
+"Homepage" = "https://github.com/SomeAB/somelang"
+"Bug Reports" = "https://github.com/SomeAB/somelang/issues"
+"Source" = "https://github.com/SomeAB/somelang"
+
+[tool.setuptools.packages.find]
+exclude = ["tests*", "scripts*", "raw_data*", "training_data*", "trigrams_data*", "somelang_env*", "node_modules*"]

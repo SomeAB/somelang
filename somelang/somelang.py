@@ -9,11 +9,11 @@ This is a natural language detection library
 import re # For regular expressions
 from typing import Dict, List, Tuple, Optional # For type hinting
 
-# Import NEW script patterns & code-to-name mapping
-from .script_patterns import ALL_SCRIPT_PATTERNS, SCRIPT_CODE_TO_NAME
+# Import default script patterns
+from .default_patterns import ALL_SCRIPT_PATTERNS
 
-# Import NEW trigrams data
-from .trigrams_data_0003D import LANGUAGE_TRIGRAMS
+# Import default trigrams data
+from .default_trigrams import LANGUAGE_TRIGRAMS
 
 # Import default whitelist
 # USE THIS FOR BETTER ACCURACY ON SHORTER TEXT ( text < 100 characters )
