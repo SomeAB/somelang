@@ -5,7 +5,7 @@ USE THIS FOR BETTER ACCURACY ON SHORTER TEXT ( text < 100 characters )
 
 # Core python imports
 from types import MappingProxyType # For dictionary mutability protection
-from typing import Dict, List # For type hinting
+from typing import Dict # For type hinting
 
 DEFAULT_WHITELIST: frozenset = frozenset([
     # Major European languages

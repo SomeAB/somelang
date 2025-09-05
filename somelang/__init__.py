@@ -158,6 +158,56 @@ def show_supported_languages(whitelist=False, verbose=False):
 def main():
     """Entry point for command line usage"""
     import sys
+    
+    # Handle help flags
+    if len(sys.argv) > 1 and sys.argv[1] in ['--help', '-h', 'help']:
+        print(f"SomeLang v{__version__} - Advanced Language Detection")
+        print()
+        print("COMMAND LINE USAGE:")
+        print("  python -m somelang 'text to analyze'")
+        print("  python -m somelang --help")
+        print("  python -m somelang --version")
+        print()
+        print("PYTHON API USAGE:")
+        print("  # Basic detection (returns language code)")
+        print("  from somelang import somelang")
+        print("  lang = somelang('Hello world')  # Returns: 'eng'")
+        print()
+        print("  # Verbose detection (returns language name)")
+        print("  lang = somelang('Hello world', verbose=True)  # Returns: 'English'")
+        print()
+        print("  # Get all probable languages with confidence scores")
+        print("  from somelang import somelang_all")
+        print("  results = somelang_all('Hello world')  # Returns: [['eng', 1.0], ...]")
+        print()
+        print("  # Use all 194 languages (no whitelist restriction)")
+        print("  from somelang import somelang_no_whitelist")
+        print("  lang = somelang_no_whitelist('Text in rare language')")
+        print()
+        print("  # List supported languages")
+        print("  from somelang import show_supported_languages")
+        print("  all_langs = show_supported_languages()  # All 194 languages")
+        print("  whitelist = show_supported_languages(whitelist=True)  # 158 common languages")
+        print()
+        print("EXAMPLES:")
+        print("  python -m somelang 'Hello world'                    # Output: eng")
+        print("  python -m somelang 'Bonjour tout le monde'          # Output: fra")
+        print("  python -m somelang 'Hola como estas'                # Output: spa")
+        print("  python -m somelang 'Guten Tag, wie geht es dir'     # Output: deu")
+        print()
+        print("LANGUAGE SUPPORT:")
+        print(f"  Total languages supported: {len(show_supported_languages())}")
+        print(f"  Default whitelist (optimized for accuracy): {len(show_supported_languages(whitelist=True))} languages")
+        print("  Minimum text length: 10 characters")
+        print("  Optimal accuracy: 100+ characters")
+        return
+    
+    # Handle version flag
+    if len(sys.argv) > 1 and sys.argv[1] in ['--version', '-v', 'version']:
+        print(f"SomeLang v{__version__}")
+        return
+    
+    # Handle text analysis
     if len(sys.argv) > 1:
         text = " ".join(sys.argv[1:])
         result = somelang(text)
@@ -165,6 +215,7 @@ def main():
     else:
         print(f"SomeLang v{__version__} - Advanced Language Detection")
         print("Usage: python -m somelang 'text to analyze'")
+        print("Use --help for more information")
         print(f"Supports {len(show_supported_languages())} languages")
 
 if __name__ == "__main__":
